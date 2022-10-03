@@ -1,35 +1,40 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled, { useTheme } from "styled-components/native";
-import { LinearGradient } from "expo-linear-gradient";
-import {
-  ActivityIndicator,
-  GestureResponderEvent,
-  TouchableWithoutFeedback,
-  ViewStyle,
-} from "react-native";
+import { ActivityIndicator, ViewStyle } from "react-native";
+import TouchableScale from "../TouchableScale";
+
+export type ButtonVariant = "primary" | "secondary";
 
 export interface ButtonProps {
-  onPress: (event: GestureResponderEvent) => void;
+  variant?: ButtonVariant;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
   loading?: boolean;
   style?: ViewStyle;
   children: string;
+  onPress: () => void;
 }
 
 export default function Button(props: ButtonProps) {
-  const { onPress, loading, style, children } = props;
+  const {
+    variant = "primary",
+    startIcon,
+    endIcon,
+    loading,
+    style,
+    children,
+    onPress,
+  } = props;
 
   const theme = useTheme();
 
   return (
-    <TouchableWithoutFeedback onPress={(event) => !loading && onPress(event)}>
-      <Container
-        colors={[
-          theme.colors.common.yellow.light,
-          theme.colors.common.yellow.dark,
-        ]}
-        style={style}
-      >
-        <Label>{children}</Label>
+    <TouchableScale onPress={() => !loading && onPress()}>
+      <Root variant={variant} style={style}>
+        {startIcon && <StartIcon>{startIcon}</StartIcon>}
+
+        <Label variant={variant}>{children}</Label>
+
         {loading && (
           <ActivityIndicator
             size="small"
@@ -37,23 +42,34 @@ export default function Button(props: ButtonProps) {
             style={{ marginLeft: 12 }}
           />
         )}
-      </Container>
-    </TouchableWithoutFeedback>
+
+        {endIcon && <EndIcon>{endIcon}</EndIcon>}
+      </Root>
+    </TouchableScale>
   );
 }
 
-const Container = styled(LinearGradient)`
-  width: 100%;
+const Root = styled.View<{ variant: ButtonVariant }>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 12px 16px;
-  border-radius: 26px;
+  border-radius: 24px;
+  background: ${({ theme, variant }) =>
+    theme.colors.button[variant].background};
 `;
 
-const Label = styled.Text`
+const StartIcon = styled.View`
+  margin-right: 8px;
+`;
+
+const EndIcon = styled.View`
+  margin-left: 8px;
+`;
+
+const Label = styled.Text<{ variant: ButtonVariant }>`
   line-height: 28px;
   font-size: 22px;
   font-family: ${({ theme }) => theme.fonts.heavy};
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme, variant }) => theme.colors.text.primary};
 `;

@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
-import { TouchableWithoutFeedback, View } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import styled from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import { StepRoot, StepTitle } from "./shared";
-import BackIcon from "../../../../assets/images/icons/back.svg";
 import CameraIcon from "../../../../assets/images/icons/camera.svg";
 import { OnboardingFormValues } from "./Onboarding";
+import TouchableScale from "../../../components/TouchableScale";
 
 export interface OnboardingStep3Props {
   onBack: () => void;
@@ -43,19 +43,17 @@ export default function OnboardingStep3(props: OnboardingStep3Props) {
   return (
     <StepRoot>
       <Navigation>
-        <IconButton onPress={props.onBack} style={{ left: -8 }}>
-          <BackIcon />
-        </IconButton>
+        <IconButton name="back" edge="start" onPress={props.onBack} />
 
-        <TouchableWithoutFeedback onPress={() => props.onSubmit({})}>
+        <TouchableScale onPress={() => props.onSubmit({})}>
           <SkipText>Skip</SkipText>
-        </TouchableWithoutFeedback>
+        </TouchableScale>
       </Navigation>
 
       <StepTitle>Add a picture of yourself</StepTitle>
 
       <AvatarContainer>
-        <TouchableWithoutFeedback onPress={selectPhoto}>
+        <TouchableScale onPress={selectPhoto}>
           {avatar ? (
             <AvatarPreview source={{ uri: avatar.uri }} />
           ) : (
@@ -63,7 +61,7 @@ export default function OnboardingStep3(props: OnboardingStep3Props) {
               <CameraIcon width={40} height={40} />
             </AvatarPreview>
           )}
-        </TouchableWithoutFeedback>
+        </TouchableScale>
 
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </AvatarContainer>

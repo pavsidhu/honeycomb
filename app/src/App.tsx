@@ -1,39 +1,52 @@
 import { QueryClientProvider } from "react-query";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
-import { StatusBar, useColorScheme } from "react-native";
-import AppLoading from "expo-app-loading";
+import React, { useLayoutEffect } from "react";
+import { StatusBar } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { ThemeProvider } from "styled-components/native";
-import { baseTheme, lightTheme, darkTheme } from "./theme";
+import { baseTheme, lightTheme } from "./theme";
 import { useSetupQueryClient } from "./queryClient";
+import Auth from "./screens/Auth";
 import Main from "./screens/Main";
 import "react-native-url-polyfill/auto";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-  let [haveFontsLoaded] = useFonts({
+  const queryClient = useSetupQueryClient();
+
+  const [haveFontsLoaded] = useFonts({
     [baseTheme.fonts.regular]: require("../assets/fonts/TextaAlt-Regular.ttf"),
     [baseTheme.fonts.medium]: require("../assets/fonts/TextaAlt-Medium.ttf"),
     [baseTheme.fonts.bold]: require("../assets/fonts/TextaAlt-Bold.ttf"),
     [baseTheme.fonts.heavy]: require("../assets/fonts/TextaAlt-Heavy.ttf"),
   });
 
-  const queryClient = useSetupQueryClient();
-  const colorScheme = useColorScheme();
+  useLayoutEffect(() => {
+    if (haveFontsLoaded) SplashScreen.hideAsync();
+  }, [haveFontsLoaded]);
 
-  if (!haveFontsLoaded) return <AppLoading />;
+  if (!haveFontsLoaded) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={colorScheme === "dark" ? darkTheme : lightTheme}>
+      <ThemeProvider theme={lightTheme}>
         <NavigationContainer>
-          <StatusBar
-            barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
-          />
+          <StatusBar barStyle="dark-content" />
 
-          <Main />
+          <Screen />
         </NavigationContainer>
       </ThemeProvider>
     </QueryClientProvider>
   );
+}
+
+function Screen() {
+  // return <Main />;
+  return <Auth />;
+
+  // const { data: currentUser, isLoading } = useCurrentUser();
+  // if (!isLoading) return null;
+  // return currentUser ? <Main /> : <Auth />;
 }

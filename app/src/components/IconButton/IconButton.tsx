@@ -1,57 +1,64 @@
-import React, { PropsWithChildren } from "react";
-import { TouchableWithoutFeedback, ViewStyle } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import styled, { useTheme } from "styled-components/native";
+import React from "react";
+import { ViewStyle } from "react-native";
+import styled, { css, useTheme } from "styled-components/native";
+import TouchableScale from "../TouchableScale";
+import BackIcon from "../../../assets/images/icons/back.svg";
 
-export interface IconButtonProps extends PropsWithChildren<{}> {
-  onPress: () => void;
-  variant?: "primary" | "secondary" | "icon-only";
+const icons = {
+  back: BackIcon,
+};
+
+export type IconButtonVariant = "primary" | "secondary";
+export type IconButtonEdge = "start" | "end";
+
+export interface IconButtonProps {
+  name: keyof typeof icons;
+  variant?: IconButtonVariant;
+  edge?: IconButtonEdge;
   style?: ViewStyle;
+  onPress: () => void;
 }
 
 export default function IconButton(props: IconButtonProps) {
-  const { variant = "icon-only", onPress, style, children } = props;
+  const { name, variant = "primary", edge, style, onPress } = props;
 
   const theme = useTheme();
 
-  let colors: string[];
-
-  switch (variant) {
-    case "primary":
-      colors = [
-        theme.colors.common.yellow.light,
-        theme.colors.common.yellow.dark,
-      ];
-      break;
-
-    case "secondary":
-      colors = [
-        theme.colors.background.secondary,
-        theme.colors.background.secondary,
-      ];
-      break;
-
-    case "icon-only":
-      colors = ["transparent"];
-      break;
-
-    default:
-      throw new Error(`Invalid IconButton variant: ${variant}`);
-  }
+  const Icon = icons[name];
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Container colors={colors} style={style}>
-        {children}
-      </Container>
-    </TouchableWithoutFeedback>
+    <Root edge={edge} style={style}>
+      <TouchableScale onPress={onPress}>
+        <Container>
+          <Icon fill={theme.colors.icon[variant]} width={24} height={24} />
+        </Container>
+      </TouchableScale>
+    </Root>
   );
 }
 
-const Container = styled(LinearGradient)`
-  width: 40px;
-  height: 40px;
+const SIZE = "40px";
+
+const Root = styled.View<{ edge?: IconButtonEdge }>`
+  width: ${SIZE};
+  height: ${SIZE};
+
+  ${({ edge }) =>
+    edge === "start" &&
+    css`
+      margin-left: -8px;
+    `}
+
+  ${({ edge }) =>
+    edge === "end" &&
+    css`
+      margin-right: -8px;
+    `}
+`;
+
+const Container = styled.View`
+  width: ${SIZE};
+  height: ${SIZE};
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
 `;

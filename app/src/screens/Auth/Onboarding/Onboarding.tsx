@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FlatList } from "react-native";
+import { Dimensions, FlatList, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled from "styled-components/native";
 import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
@@ -8,6 +8,7 @@ import OnboardingStep1 from "./OnboardingStep1";
 import OnboardingStep2 from "./OnboardingStep2";
 import OnboardingStep3 from "./OnboardingStep3";
 import OnboardingStep4 from "./OnboardingStep4";
+import { YellowThemeProvider } from "../../../theme";
 
 export interface OnboardingFormValues {
   firstName?: string;
@@ -66,22 +67,24 @@ export default function Onboarding(props: OnboardingProps) {
   }
 
   return (
-    <Root>
-      <ProgressBar percent={progress} />
+    <YellowThemeProvider>
+      <Root>
+        <ProgressBar percent={progress} />
 
-      <FlatList
-        ref={flatListRef}
-        horizontal={true}
-        scrollEnabled={false}
-        data={pages}
-        renderItem={(info) => info.item}
-        keyboardShouldPersistTaps="always"
-      />
-    </Root>
+        <FlatList
+          ref={flatListRef}
+          horizontal={true}
+          scrollEnabled={false}
+          data={pages}
+          renderItem={(info) => info.item}
+          keyboardShouldPersistTaps="always"
+        />
+      </Root>
+    </YellowThemeProvider>
   );
 }
 
 const Root = styled.SafeAreaView`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background.default};
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;

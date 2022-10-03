@@ -13,12 +13,12 @@ export default {
     platforms: ["ios"],
     orientation: "portrait",
     assetBundlePatterns: ["**/*"],
-    notification: {
-      iosDisplayInForeground: true,
+    notification: { iosDisplayInForeground: true },
+    splash: {
+      image: "./assets/images/logo/splash-screen.png",
+      backgroundColor: "#FFC72D",
     },
     extra: {
-      supabaseUrl: process.env.SUPABASE_URL,
-      supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
       termsOfServiceUrl: process.env.TERMS_OF_SERVICE_URL,
       privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     },

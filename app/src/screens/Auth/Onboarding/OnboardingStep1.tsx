@@ -1,7 +1,13 @@
 import React, { useRef, useState } from "react";
-import { Keyboard, TextInput as RNTextInput } from "react-native";
+import {
+  Keyboard,
+  TextInput as RNTextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Button from "../../../components/Button";
-import TextInput from "../../../components/TextInput";
+import TextInput from "../../../components/TextField";
+import TouchableScale from "../../../components/TouchableScale";
 import { OnboardingFormValues } from "./Onboarding";
 import { StepRoot, StepTitle } from "./shared";
 
@@ -78,7 +84,8 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
         ref={lastNameRef}
         style={{ marginBottom: 24 }}
       />
-      <Button loading={isLoading} onPress={handleSubmit}>
+
+      <Button loading={isLoading} onPress={handleSubmit} style={{ backgroundColor: theme. }}>
         Continue
       </Button>
     </StepRoot>

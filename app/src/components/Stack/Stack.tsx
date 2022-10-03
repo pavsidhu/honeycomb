@@ -9,7 +9,7 @@ interface StackProps extends PropsWithChildren<{}> {
 }
 
 export default function Stack(props: StackProps) {
-  const { flexDirection = "column", gap = 16, divider, style } = props;
+  const { flexDirection = "column", gap = 0, divider, style } = props;
 
   const length = React.Children.count(props.children);
 

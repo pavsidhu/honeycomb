@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled, { useTheme } from "styled-components/native";
 import PickerSelect, { Item } from "react-native-picker-select";
-
 import countryPhoneInfo from "../../../assets/data/country-phone-info.json";
 import { View, ViewStyle } from "react-native";
-import TextInput from "../TextInput";
+import TextField from "../TextField";
 
 const countryPhoneCodes: Item[] = countryPhoneInfo.map((country) => ({
   label: `${country.flag} ${country.name} (${country.dial_code})`,
@@ -48,9 +47,9 @@ export default function PhoneInput(props: PhoneInputProps) {
           onValueChange={setPhoneCode}
           style={{
             inputIOSContainer: {
-              padding: 16,
-              borderTopLeftRadius: 20,
-              borderBottomLeftRadius: 20,
+              padding: 18,
+              borderTopLeftRadius: 8,
+              borderBottomLeftRadius: 8,
               backgroundColor: theme.colors.input.background,
               borderRightWidth: 1,
               borderRightColor: "rgba(0, 0, 0, 0.1)",
@@ -62,7 +61,7 @@ export default function PhoneInput(props: PhoneInputProps) {
           }}
         />
 
-        <PhoneNumberInput
+        <TextField
           placeholder="Phone Number"
           keyboardType="phone-pad"
           returnKeyType="done"
@@ -71,6 +70,7 @@ export default function PhoneInput(props: PhoneInputProps) {
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
           }}
+          style={{ flex: 1 }}
         />
       </InputContainer>
 
@@ -82,10 +82,6 @@ export default function PhoneInput(props: PhoneInputProps) {
 const InputContainer = styled.View`
   flex-direction: row;
   font-size: 20px;
-`;
-
-const PhoneNumberInput = styled(TextInput)`
-  flex: 1;
 `;
 
 const ErrorMessage = styled.Text`

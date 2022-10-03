@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import { StepRoot, StepTitle } from "./shared";
-import BackIcon from "../../../../assets/images/icons/back.svg";
+
 import { OnboardingFormValues } from "./Onboarding";
 
 const MAXIMUM_AGE = 18;
@@ -32,15 +32,14 @@ export default function OnboardingStep2(props: OnboardingStep2Props) {
 
   return (
     <StepRoot>
-      <IconButton onPress={props.onBack} style={{ left: -8 }}>
-        <BackIcon />
-      </IconButton>
+      <IconButton name="back" edge="start" onPress={props.onBack} />
+
       <StepTitle>When's your birthday?</StepTitle>
 
       <DateTimePicker
         display="spinner"
         value={dateOfBirth ?? maximumDate}
-        onChange={(_event: Event, date?: Date) => setDateOfBirth(date)}
+        onChange={(_, date) => setDateOfBirth(date)}
         maximumDate={maximumDate}
         style={{ marginBottom: 24 }}
       />

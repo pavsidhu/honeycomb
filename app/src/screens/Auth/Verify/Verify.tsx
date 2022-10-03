@@ -2,19 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   SafeAreaView,
+  ScrollView,
   TextInput as RNTextInput,
   View,
 } from "react-native";
 import Button from "../../../components/Button";
-import { supabase } from "../../../supabase";
 import styled from "styled-components/native";
-import TextInput from "../../../components/TextInput";
+import TextInput from "../../../components/TextField";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
-import BackIcon from "../../../../assets/images/icons/back.svg";
 import IconButton from "../../../components/IconButton";
-import { useQueryClient } from "react-query";
-import { useCurrentUser } from "../../../supabase/entities/users";
+import { YellowThemeProvider } from "../../../theme";
+import Stack from "../../../components/Stack";
 
 const validCodeRegex = /^[0-9]{6}$/;
 
@@ -24,17 +23,14 @@ export type VerifyProps = NativeStackScreenProps<
 >;
 
 export default function Verify(props: VerifyProps) {
-  const { phoneNumber } = props.route.params;
-
-  const { data: currentUser } = useCurrentUser();
+  const { navigation, route } = props;
+  const { phoneNumber } = route.params;
 
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
   const codeInputRef = useRef<RNTextInput>(null);
-
-  const queryClient = useQueryClient();
 
   async function verifyCode() {
     setIsLoading(true);
@@ -45,46 +41,10 @@ export default function Verify(props: VerifyProps) {
       return;
     }
 
-    const { session, error: verifyError } = await supabase.auth.verifyOTP({
-      phone: phoneNumber,
-      token: code,
-    });
-
-    // Invalid phone number
-    if (verifyError?.status === 422) {
-      setIsLoading(false);
-      setErrorMessage("Please enter your verification code");
-      return;
-    }
-
-    // Likely a connection issue
-    if (verifyError) {
-      setIsLoading(false);
-      setErrorMessage(
-        "Please check your verification code and internet connection"
-      );
-      return;
-    }
-
-    const { error: signInError } = await supabase.auth.signIn({
-      refreshToken: session?.refresh_token,
-    });
-
-    // Likely a connection issue
-    if (signInError) {
-      setIsLoading(false);
-      setErrorMessage("Please check your internet connection and try again");
-      return;
-    }
-
     setIsLoading(false);
     setErrorMessage(undefined);
 
-    await queryClient.invalidateQueries("currentUser");
-
-    if (!currentUser) {
-      props.navigation.push(AuthRoutes.Onboarding);
-    }
+    navigation.push(AuthRoutes.Onboarding);
   }
 
   useEffect(() => {
@@ -92,54 +52,65 @@ export default function Verify(props: VerifyProps) {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <IconButton onPress={props.navigation.goBack} style={{ left: -8 }}>
-          <BackIcon />
-        </IconButton>
+    <YellowThemeProvider>
+      <Root>
+        <SafeAreaView style={{ flex: 1 }}>
+          <IconButton name="back" edge="start" onPress={navigation.goBack} />
 
-        <KeyboardAvoidingView
-          behavior="position"
-          contentContainerStyle={{ flex: 1 }}
-          keyboardVerticalOffset={100}
-          style={{ flex: 1, width: "100%" }}
-        >
-          <View style={{ flex: 1 }} />
+          <KeyboardAvoidingView
+            behavior="position"
+            contentContainerStyle={{ flex: 1 }}
+            keyboardVerticalOffset={100}
+            style={{ flex: 1, width: "100%" }}
+          >
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+              <View style={{ flex: 1 }} />
 
-          <Title>Enter your verification code:</Title>
-          <PhoneNumber>Code sent to {phoneNumber}</PhoneNumber>
+              <Stack gap={16}>
+                <View>
+                  <Title>Enter your verification code:</Title>
+                  <PhoneNumber>Code sent to {phoneNumber}</PhoneNumber>
+                </View>
 
-          <TextInput
-            ref={codeInputRef}
-            placeholder="000000"
-            keyboardType="number-pad"
-            onChangeText={setCode}
-            errorMessage={errorMessage}
-            style={{ marginBottom: 16, width: "100%" }}
-          />
+                <TextInput
+                  ref={codeInputRef}
+                  placeholder="000000"
+                  keyboardType="number-pad"
+                  onChangeText={setCode}
+                  errorMessage={errorMessage}
+                  style={{ marginBottom: 16, width: "100%" }}
+                />
 
-          <Button onPress={verifyCode} loading={isLoading}>
-            Continue
-          </Button>
-        </KeyboardAvoidingView>
-      </Container>
-    </SafeAreaView>
+                <Button
+                  onPress={verifyCode}
+                  loading={isLoading}
+                  style={{ backgroundColor: "#7EAEF4" }}
+                >
+                  Continue
+                </Button>
+              </Stack>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </Root>
+    </YellowThemeProvider>
   );
 }
 
-const Container = styled.View`
-  margin: 24px;
+const Root = styled.View`
+  background: ${({ theme }) => theme.colors.background.primary};
   flex: 1;
+  padding: 0 24px;
 `;
 
 const Title = styled.Text`
   font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 8px;
+  font-family: ${({ theme }) => theme.fonts.heavy};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const PhoneNumber = styled.Text`
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 24px;
+  font-size: 20px;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
