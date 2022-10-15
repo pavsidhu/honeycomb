@@ -4,6 +4,7 @@ import * as Notifications from "expo-notifications";
 import Button from "../../../components/Button";
 import { StepRoot, StepTitle } from "./shared";
 import { OnboardingFormValues } from "./Onboarding";
+import ErrorMessage from "../../../components/ErrorMessage";
 export interface OnboardingStep4Props {
   formValues: OnboardingFormValues;
   onBack: () => void;
@@ -52,11 +53,3 @@ export default function OnboardingStep4(props: OnboardingStep4Props) {
     </StepRoot>
   );
 }
-
-const ErrorMessage = styled.Text`
-  margin-top: 4px;
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  color: ${({ theme }) => theme.colors.text.error};
-`;

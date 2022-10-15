@@ -9,6 +9,7 @@ import { StepRoot, StepTitle } from "./shared";
 import CameraIcon from "../../../../assets/images/icons/camera.svg";
 import { OnboardingFormValues } from "./Onboarding";
 import TouchableScale from "../../../components/TouchableScale";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 export interface OnboardingStep3Props {
   onBack: () => void;
@@ -95,12 +96,4 @@ const AvatarPreview = styled.Image`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-`;
-
-const ErrorMessage = styled.Text`
-  margin-top: 4px;
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  color: ${({ theme }) => theme.colors.text.error};
 `;

@@ -5,6 +5,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import styled from "styled-components/native";
 import { TouchableWithoutFeedback, View } from "react-native";
+import { LightThemeProvider } from "../../theme";
 
 export interface CreatePlanOrHiveBottomSheetProps {
   onCreatePlanPress: () => void;
@@ -18,46 +19,48 @@ const CreatePlanOrHiveBottomSheet = forwardRef<
   const { onCreatePlanPress, onCreateHivePress } = props;
 
   return (
-    <BottomSheet
-      snapPoints={[256]}
-      index={-1}
-      ref={ref}
-      backdropComponent={(props) => (
-        <BottomSheetBackdrop
-          disappearsOnIndex={-1}
-          appearsOnIndex={0}
-          {...props}
-        />
-      )}
-    >
-      <BottomSheetView>
-        <Title>What would you like to do?</Title>
+    <LightThemeProvider>
+      <BottomSheet
+        snapPoints={[256]}
+        index={-1}
+        ref={ref}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+            {...props}
+          />
+        )}
+      >
+        <BottomSheetView>
+          <Title>What would you like to do?</Title>
 
-        <TouchableWithoutFeedback onPress={onCreatePlanPress}>
-          <ListItem>
-            {/* <Icon /> */}
-            <View>
-              <ListItemTitle>Create a new plan</ListItemTitle>
-              <ListItemSubtitle>
-                Have an event in mind? Share it with others!
-              </ListItemSubtitle>
-            </View>
-          </ListItem>
-        </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={onCreatePlanPress}>
+            <ListItem>
+              {/* <Icon /> */}
+              <View>
+                <ListItemTitle>Create a new plan</ListItemTitle>
+                <ListItemSubtitle>
+                  Have an event in mind? Share it with others!
+                </ListItemSubtitle>
+              </View>
+            </ListItem>
+          </TouchableWithoutFeedback>
 
-        <TouchableWithoutFeedback onPress={onCreateHivePress}>
-          <ListItem>
-            {/* <Icon /> */}
-            <View>
-              <ListItemTitle>Create a new hive</ListItemTitle>
-              <ListItemSubtitle>
-                Build your own group of like-minded people!
-              </ListItemSubtitle>
-            </View>
-          </ListItem>
-        </TouchableWithoutFeedback>
-      </BottomSheetView>
-    </BottomSheet>
+          <TouchableWithoutFeedback onPress={onCreateHivePress}>
+            <ListItem>
+              {/* <Icon /> */}
+              <View>
+                <ListItemTitle>Create a new hive</ListItemTitle>
+                <ListItemSubtitle>
+                  Build your own group of like-minded people!
+                </ListItemSubtitle>
+              </View>
+            </ListItem>
+          </TouchableWithoutFeedback>
+        </BottomSheetView>
+      </BottomSheet>
+    </LightThemeProvider>
   );
 });
 

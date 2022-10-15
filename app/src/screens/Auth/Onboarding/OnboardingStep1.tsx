@@ -1,13 +1,9 @@
 import React, { useRef, useState } from "react";
-import {
-  Keyboard,
-  TextInput as RNTextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Keyboard, TextInput as RNTextInput, View } from "react-native";
+import { useTheme } from "styled-components/native";
 import Button from "../../../components/Button";
+import Stack from "../../../components/Stack";
 import TextInput from "../../../components/TextField";
-import TouchableScale from "../../../components/TouchableScale";
 import { OnboardingFormValues } from "./Onboarding";
 import { StepRoot, StepTitle } from "./shared";
 
@@ -20,13 +16,11 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
 
   const [firstName, setFirstName] = useState<string>();
   const [firstNameErrorMessage, setFirstNameErrorMessage] = useState<string>();
-
   const [lastName, setLastName] = useState<string>();
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState<string>();
-
   const [isLoading, setIsLoading] = useState(false);
-
   const lastNameRef = useRef<RNTextInput>(null);
+  const theme = useTheme();
 
   function handleSubmit() {
     setIsLoading(true);
@@ -62,6 +56,8 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
 
   return (
     <StepRoot>
+      <View style={{ flex: 1 }} />
+
       <StepTitle>What's your name?</StepTitle>
 
       <TextInput
@@ -72,7 +68,6 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
         value={firstName}
         onChangeText={setFirstName}
         onSubmitEditing={() => lastNameRef.current?.focus()}
-        style={{ marginBottom: 24 }}
       />
       <TextInput
         placeholder="Last name"
@@ -82,10 +77,13 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
         onChangeText={setLastName}
         onSubmitEditing={handleSubmit}
         ref={lastNameRef}
-        style={{ marginBottom: 24 }}
       />
 
-      <Button loading={isLoading} onPress={handleSubmit} style={{ backgroundColor: theme. }}>
+      <Button
+        loading={isLoading}
+        onPress={handleSubmit}
+        style={{ backgroundColor: theme.colors.common.blue }}
+      >
         Continue
       </Button>
     </StepRoot>

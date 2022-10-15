@@ -1,9 +1,11 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import Stack from "../../../../components/Stack";
-import LocationIcon from "../../../../../assets/images/icons/location.svg";
 import TouchableScale from "../../../../components/TouchableScale";
+import Avatar from "../../../../components/Avatar";
+import AvatarList from "../../../../components/AvatarList";
+import Button from "../../../../components/Button";
 
 export interface PlanCardProps {
   plan: {};
@@ -14,43 +16,52 @@ export interface PlanCardProps {
 export default function PlanCard(props: PlanCardProps) {
   const { plan, onPress, style } = props;
 
+  const theme = useTheme();
+
   return (
     <TouchableScale onPress={onPress} scale={0.95}>
       <Root style={style}>
-        <Stack flexDirection="row" gap={16}>
+        <Stack gap={16} style={{ flex: 1 }}>
+          <Stack flexDirection="row" gap={4} style={{ alignItems: "center" }}>
+            <Avatar
+              uri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
+              size={40}
+              strokeColor={theme.colors.background.secondary}
+            />
+
+            <DetailText>20-30’s London Community</DetailText>
+          </Stack>
+
+          {Math.random() < 0.5 && (
+            <Photo
+              source={{
+                uri: "https://www.meetup.com/_next/image/?url=https%3A%2F%2Fsecure-content.meetupstatic.com%2Fimages%2Fclassic-events%2F503910029%2F676x380.webp&w=1200&q=75",
+              }}
+            />
+          )}
+
           <Details>
-            <Stack flexDirection="row" gap={4}>
-              {/* <HivePhoto /> */}
-              <DetailText>20-30’s London Community</DetailText>
-            </Stack>
-
-            <MainDetails>
-              <Name>Board games night</Name>
-              <Time>Today at 7:00pm</Time>
-            </MainDetails>
-
-            <Stack gap={8} flexDirection="row">
-              <Stack gap={4}>
-                {/* <PhotosList /> */}
-                <DetailText>51 going</DetailText>
-              </Stack>
-
-              <Stack
-                gap={4}
-                flexDirection="row"
-                style={{ alignItems: "center" }}
-              >
-                <LocationIcon style={{ width: 16, height: 16 }} />
-                <DetailText>6km away</DetailText>
-              </Stack>
-            </Stack>
+            <Name>🎲 Board games night</Name>
+            <Time>Today at 7:00pm</Time>
           </Details>
 
-          <Photo
-            source={{
-              uri: "https://www.meetup.com/_next/image/?url=https%3A%2F%2Fsecure-content.meetupstatic.com%2Fimages%2Fclassic-events%2F503910029%2F676x380.webp&w=1200&q=75",
-            }}
-          />
+          <Stack flexDirection="row" gap={4} style={{ alignItems: "center" }}>
+            <AvatarList
+              avatars={[
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+              ]}
+              size={40}
+              strokeColor={theme.colors.background.secondary}
+              style={{ flex: 1 }}
+            />
+
+            <Button onPress={() => undefined} size="small">
+              I'm going!
+            </Button>
+          </Stack>
         </Stack>
       </Root>
     </TouchableScale>
@@ -61,14 +72,10 @@ const Root = styled.View`
   background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 32px;
   overflow: hidden;
+  padding: 16px;
 `;
 
 const Details = styled.View`
-  padding: 16px;
-  flex: 1;
-`;
-
-const MainDetails = styled.View`
   flex: 1;
   justify-content: center;
 `;
@@ -82,16 +89,17 @@ const Name = styled.Text`
 const Time = styled.Text`
   color: ${({ theme }) => theme.colors.text.secondary};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const DetailText = styled.Text`
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.text.secondary};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const Photo = styled.Image`
-  width: 106px;
-  height: 174px;
+  height: 180px;
+  width: 100%;
+  border-radius: 16px;
 `;

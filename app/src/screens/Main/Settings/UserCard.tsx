@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Stack from "../../../components/Stack";
 import IconButton from "../../../components/IconButton";
 import { YellowThemeProvider } from "../../../theme";
+import Avatar from "../../../components/Avatar";
 
 export interface UserCardProps {
   onBackPress: () => void;
@@ -18,8 +19,12 @@ export default function UserCard(props: UserCardProps) {
       <Root style={style}>
         <IconButton name="back" edge="start" onPress={onBackPress} />
 
-        <Stack>
-          {/* <Avatar uri={currentUserAvatar?.uri} size={80} /> */}
+        <Stack style={{ alignItems: "center" }}>
+          <Avatar
+            size={120}
+            strokeWidth={2}
+            uri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
+          />
           <Name>Pav Sidhu</Name>
         </Stack>
       </Root>
@@ -28,7 +33,6 @@ export default function UserCard(props: UserCardProps) {
 }
 
 const Root = styled.View`
-  align-items: center;
   padding: 24px;
   background: ${({ theme }) => theme.colors.background.primary};
   width: 100%;

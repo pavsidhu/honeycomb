@@ -206,7 +206,7 @@ export default function Hive(props: HiveProps) {
 
 const Root = styled.View`
   flex: 1;
-  background: ${({ theme }) => theme.colors.background.yellow};
+  background: ${({ theme }) => theme.colors.background.primary};
   position: relative;
 `;
 
@@ -230,7 +230,7 @@ const Name = styled.Text`
 const Location = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: 18px;
-  color: ${({ theme }) => theme.colors.text.transparentPrimary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const PlanCardStack = styled(Stack)`

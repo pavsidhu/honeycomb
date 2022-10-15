@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Linking } from "react-native";
+import { Linking, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import Constants from "expo-constants";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
@@ -27,26 +27,26 @@ export default function Settings(props: SettingsProps) {
 
   return (
     <Root>
-      <Stack gap={16}>
-        <UserCard onBackPress={navigation.goBack} />
+      <UserCard onBackPress={navigation.goBack} />
 
+      <ScrollView style={{ paddingTop: 16 }}>
         <Stack gap={16}>
           <SettingsItem onPress={accountSettings} label="Account Settings" />
           <SettingsItem onPress={openTerms} label="Terms of Service" />
           <SettingsItem onPress={openPrivacy} label="Privacy Policy" />
           <SettingsItem onPress={logOut} label="Log Out" />
-        </Stack>
 
-        <SmallText>
-          <Version>Honeycomb Version 1.0 🐝</Version>
-          <Credit>Made in London</Credit>
-        </SmallText>
-      </Stack>
+          <SmallText>
+            <Version>Honeycomb Version 1.0 🐝</Version>
+            <Credit>Made in London</Credit>
+          </SmallText>
+        </Stack>
+      </ScrollView>
     </Root>
   );
 }
 
-const Root = styled.ScrollView`
+const Root = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.background.primary};
 `;

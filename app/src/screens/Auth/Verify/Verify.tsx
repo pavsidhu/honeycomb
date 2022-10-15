@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import Button from "../../../components/Button";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import TextInput from "../../../components/TextField";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
@@ -29,10 +29,10 @@ export default function Verify(props: VerifyProps) {
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
-
   const codeInputRef = useRef<RNTextInput>(null);
+  const theme = useTheme();
 
-  async function verifyCode() {
+  async function handleSubmit() {
     setIsLoading(true);
 
     if (!validCodeRegex.test(code)) {
@@ -58,12 +58,14 @@ export default function Verify(props: VerifyProps) {
           <IconButton name="back" edge="start" onPress={navigation.goBack} />
 
           <KeyboardAvoidingView
-            behavior="position"
-            contentContainerStyle={{ flex: 1 }}
-            keyboardVerticalOffset={100}
-            style={{ flex: 1, width: "100%" }}
+            behavior="padding"
+            keyboardVerticalOffset={24}
+            style={{ flex: 1 }}
           >
-            <ScrollView contentContainerStyle={{ flex: 1 }}>
+            <ScrollView
+              keyboardShouldPersistTaps="always"
+              contentContainerStyle={{ flex: 1 }}
+            >
               <View style={{ flex: 1 }} />
 
               <Stack gap={16}>
@@ -77,14 +79,14 @@ export default function Verify(props: VerifyProps) {
                   placeholder="000000"
                   keyboardType="number-pad"
                   onChangeText={setCode}
+                  onSubmitEditing={handleSubmit}
                   errorMessage={errorMessage}
-                  style={{ marginBottom: 16, width: "100%" }}
                 />
 
                 <Button
-                  onPress={verifyCode}
+                  onPress={handleSubmit}
                   loading={isLoading}
-                  style={{ backgroundColor: "#7EAEF4" }}
+                  style={{ backgroundColor: theme.colors.common.blue }}
                 >
                   Continue
                 </Button>

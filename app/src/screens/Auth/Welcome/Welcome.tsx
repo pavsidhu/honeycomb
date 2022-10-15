@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, Linking, SafeAreaView } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import Constants from "expo-constants";
 import Button from "../../../components/Button";
 import PhoneInput from "../../../components/PhoneInput";
@@ -22,14 +22,17 @@ export type WelcomeProps = NativeStackScreenProps<
 >;
 
 export default function Welcome(props: WelcomeProps) {
+  const { navigation } = props;
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const theme = useTheme();
 
-  async function sendCode() {
+  async function handleSubmit() {
     setIsLoading(true);
 
-    props.navigation.push(AuthRoutes.Verify, { phoneNumber });
+    navigation.push(AuthRoutes.Verify, { phoneNumber });
 
     setIsLoading(false);
     setErrorMessage(undefined);
@@ -63,12 +66,13 @@ export default function Welcome(props: WelcomeProps) {
                 <Stack gap={16}>
                   <PhoneInput
                     onChangeText={setPhoneNumber}
+                    onSubmitEditing={handleSubmit}
                     errorMessage={errorMessage}
                   />
                   <Button
-                    onPress={sendCode}
+                    onPress={handleSubmit}
                     loading={isLoading}
-                    style={{ backgroundColor: "#7EAEF4" }}
+                    style={{ backgroundColor: theme.colors.common.blue }}
                   >
                     Continue
                   </Button>

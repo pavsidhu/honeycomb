@@ -1,6 +1,7 @@
 import React, { forwardRef, ReactNode } from "react";
 import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import styled, { useTheme } from "styled-components/native";
+import ErrorMessage from "../ErrorMessage";
 
 interface TextFieldProps extends TextInputProps {
   icon?: ReactNode;
@@ -56,12 +57,4 @@ const Icon = styled.View`
   position: absolute;
   left: 16px;
   z-index: 1;
-`;
-
-const ErrorMessage = styled.Text`
-  margin-top: 4px;
-  margin-left: 4px;
-  font-size: 16px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  color: ${({ theme }) => theme.colors.text.error};
 `;

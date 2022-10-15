@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { subYears } from "date-fns";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
-import styled from "styled-components/native";
 import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import { StepRoot, StepTitle } from "./shared";
-
 import { OnboardingFormValues } from "./Onboarding";
+import ErrorMessage from "../../../components/ErrorMessage";
+import { View } from "react-native";
+import { useTheme } from "styled-components/native";
 
-const MAXIMUM_AGE = 18;
-const maximumDate = subYears(new Date(), MAXIMUM_AGE);
+const MINIMUM_AGE = 18;
+const maximumDate = subYears(new Date(), MINIMUM_AGE);
 
 export interface OnboardingStep2Props {
   onBack: () => void;
@@ -19,6 +20,7 @@ export interface OnboardingStep2Props {
 export default function OnboardingStep2(props: OnboardingStep2Props) {
   const [dateOfBirth, setDateOfBirth] = useState<Date | undefined>(maximumDate);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const theme = useTheme();
 
   function handleSubmit() {
     if (!dateOfBirth) {
@@ -34,6 +36,8 @@ export default function OnboardingStep2(props: OnboardingStep2Props) {
     <StepRoot>
       <IconButton name="back" edge="start" onPress={props.onBack} />
 
+      <View style={{ flex: 1 }} />
+
       <StepTitle>When's your birthday?</StepTitle>
 
       <DateTimePicker
@@ -41,20 +45,17 @@ export default function OnboardingStep2(props: OnboardingStep2Props) {
         value={dateOfBirth ?? maximumDate}
         onChange={(_, date) => setDateOfBirth(date)}
         maximumDate={maximumDate}
-        style={{ marginBottom: 24 }}
+        style={{ backgroundColor: "rgba(255,255,255,0.4)" }}
       />
 
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
-      <Button onPress={handleSubmit}>Continue</Button>
+      <Button
+        onPress={handleSubmit}
+        style={{ backgroundColor: theme.colors.common.blue }}
+      >
+        Continue
+      </Button>
     </StepRoot>
   );
 }
-
-const ErrorMessage = styled.Text`
-  margin-top: 4px;
-  margin-left: 16px;
-  font-size: 16px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  color: ${({ theme }) => theme.colors.text.error};
-`;

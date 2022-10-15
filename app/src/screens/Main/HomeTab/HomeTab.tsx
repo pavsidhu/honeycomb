@@ -12,6 +12,7 @@ import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 import HomeTabHeaderButton from "./HomeTabHeaderButton";
 import PlanCard from "./PlanCard";
 import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
+import { YellowThemeProvider } from "../../../theme";
 
 export type HomeTabProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -54,7 +55,7 @@ export default function HomeTab(props: HomeTabProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "2",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -74,7 +75,7 @@ export default function HomeTab(props: HomeTabProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "3",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -94,7 +95,7 @@ export default function HomeTab(props: HomeTabProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "4",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -114,7 +115,7 @@ export default function HomeTab(props: HomeTabProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "5",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -136,68 +137,70 @@ export default function HomeTab(props: HomeTabProps) {
   ];
 
   return (
-    <Root>
-      <SafeAreaView>
-        <Header>
-          <LogoContainer>
-            <Logo />
-            <Title>Honeycomb</Title>
-          </LogoContainer>
+    <YellowThemeProvider>
+      <Root>
+        <SafeAreaView>
+          <Header>
+            <LogoContainer>
+              <Logo />
+              <Title>Honeycomb</Title>
+            </LogoContainer>
 
-          <Stack flexDirection="row" gap={8}>
-            <HomeTabHeaderButton
-              onPress={() => createPlanOrHiveBottomSheetRef.current?.expand()}
-            >
-              <AddIcon />
-            </HomeTabHeaderButton>
+            <Stack flexDirection="row" gap={8}>
+              <HomeTabHeaderButton
+                onPress={() => createPlanOrHiveBottomSheetRef.current?.expand()}
+              >
+                <AddIcon />
+              </HomeTabHeaderButton>
 
-            <HomeTabHeaderButton
-              onPress={() => props.navigation.push(MainRoutes.Settings)}
-              photoUri={
-                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
-              }
-            />
-          </Stack>
-        </Header>
-
-        <SheetTabs
-          activeTabId={activeTabId}
-          onActiveTabIdChange={setActiveTabId}
-          tabs={[
-            { id: HomeTabSheetTab.UpcomingPlans, label: "Upcoming plans" },
-            { id: HomeTabSheetTab.PastPlans, label: "Past plans" },
-          ]}
-        />
-      </SafeAreaView>
-
-      <Sheet>
-        <ScrollView>
-          <PlanCardStack gap={16}>
-            {plans.map((it) => (
-              <PlanCard
-                plan={it}
-                onPress={() =>
-                  navigation.push(MainRoutes.Plan, { planId: it.id })
+              <HomeTabHeaderButton
+                onPress={() => props.navigation.push(MainRoutes.Settings)}
+                photoUri={
+                  "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
                 }
-                key={it.id}
               />
-            ))}
-          </PlanCardStack>
-        </ScrollView>
-      </Sheet>
+            </Stack>
+          </Header>
 
-      <CreatePlanOrHiveBottomSheet
-        ref={createPlanOrHiveBottomSheetRef}
-        onCreatePlanPress={() => navigation.push(MainRoutes.CreatePlan)}
-        onCreateHivePress={() => navigation.push(MainRoutes.CreateHive)}
-      />
-    </Root>
+          <SheetTabs
+            activeTabId={activeTabId}
+            onActiveTabIdChange={setActiveTabId}
+            tabs={[
+              { id: HomeTabSheetTab.UpcomingPlans, label: "Upcoming plans" },
+              { id: HomeTabSheetTab.PastPlans, label: "Past plans" },
+            ]}
+          />
+        </SafeAreaView>
+
+        <Sheet>
+          <ScrollView>
+            <PlanCardStack gap={16}>
+              {plans.map((it) => (
+                <PlanCard
+                  plan={it}
+                  onPress={() =>
+                    navigation.push(MainRoutes.Plan, { planId: it.id })
+                  }
+                  key={it.id}
+                />
+              ))}
+            </PlanCardStack>
+          </ScrollView>
+        </Sheet>
+
+        <CreatePlanOrHiveBottomSheet
+          ref={createPlanOrHiveBottomSheetRef}
+          onCreatePlanPress={() => navigation.push(MainRoutes.CreatePlan)}
+          onCreateHivePress={() => navigation.push(MainRoutes.CreateHive)}
+        />
+      </Root>
+    </YellowThemeProvider>
   );
 }
 
 const Root = styled.View`
   flex: 1;
-  background: ${({ theme }) => theme.colors.background.yellow};
+  background: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const Header = styled.View`
@@ -227,4 +230,12 @@ const Title = styled.Text`
 
 const PlanCardStack = styled(Stack)`
   padding: 24px;
+`;
+
+const PlanCardsTitle = styled.Text`
+  margin-left: 8px;
+  margin-top: 16px;
+  font-size: 24px;
+  font-family: ${({ theme }) => theme.fonts.heavy};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;

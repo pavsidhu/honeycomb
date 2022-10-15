@@ -4,9 +4,11 @@ import { ActivityIndicator, ViewStyle } from "react-native";
 import TouchableScale from "../TouchableScale";
 
 export type ButtonVariant = "primary" | "secondary";
+export type ButtonSize = "medium" | "small";
 
 export interface ButtonProps {
   variant?: ButtonVariant;
+  size?: ButtonSize;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   loading?: boolean;
@@ -18,6 +20,7 @@ export interface ButtonProps {
 export default function Button(props: ButtonProps) {
   const {
     variant = "primary",
+    size = "medium",
     startIcon,
     endIcon,
     loading,
@@ -30,10 +33,12 @@ export default function Button(props: ButtonProps) {
 
   return (
     <TouchableScale onPress={() => !loading && onPress()}>
-      <Root variant={variant} style={style}>
+      <Root variant={variant} size={size} style={style}>
         {startIcon && <StartIcon>{startIcon}</StartIcon>}
 
-        <Label variant={variant}>{children}</Label>
+        <Label variant={variant} size={size}>
+          {children}
+        </Label>
 
         {loading && (
           <ActivityIndicator
@@ -49,12 +54,12 @@ export default function Button(props: ButtonProps) {
   );
 }
 
-const Root = styled.View<{ variant: ButtonVariant }>`
+const Root = styled.View<{ variant: ButtonVariant; size: ButtonSize }>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 12px 16px;
-  border-radius: 24px;
+  padding: ${({ size }) => ({ medium: "12px 16px", small: "6px 12px" }[size])};
+  border-radius: ${({ size }) => ({ medium: "24px", small: "16px" }[size])};
   background: ${({ theme, variant }) =>
     theme.colors.button[variant].background};
 `;
@@ -67,9 +72,9 @@ const EndIcon = styled.View`
   margin-left: 8px;
 `;
 
-const Label = styled.Text<{ variant: ButtonVariant }>`
-  line-height: 28px;
-  font-size: 22px;
+const Label = styled.Text<{ variant: ButtonVariant; size: ButtonSize }>`
+  line-height: ${({ size }) => ({ medium: "28px", small: "24px" }[size])};
+  font-size: ${({ size }) => ({ medium: "22px", small: "18px" }[size])};
   font-family: ${({ theme }) => theme.fonts.heavy};
-  color: ${({ theme, variant }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;

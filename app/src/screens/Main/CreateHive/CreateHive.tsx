@@ -33,7 +33,7 @@ export default function CreateHive(props: NativeStackHeaderProps) {
 }
 
 const Root = styled.View`
-  background: ${({ theme }) => theme.colors.background.yellow};
+  background: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const Title = styled.Text`

@@ -1,4 +1,3 @@
-import { QueryClientProvider } from "react-query";
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useLayoutEffect } from "react";
 import { StatusBar } from "react-native";
@@ -6,7 +5,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { ThemeProvider } from "styled-components/native";
 import { baseTheme, lightTheme } from "./theme";
-import { useSetupQueryClient } from "./queryClient";
 import Auth from "./screens/Auth";
 import Main from "./screens/Main";
 import "react-native-url-polyfill/auto";
@@ -14,8 +12,6 @@ import "react-native-url-polyfill/auto";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const queryClient = useSetupQueryClient();
-
   const [haveFontsLoaded] = useFonts({
     [baseTheme.fonts.regular]: require("../assets/fonts/TextaAlt-Regular.ttf"),
     [baseTheme.fonts.medium]: require("../assets/fonts/TextaAlt-Medium.ttf"),
@@ -30,21 +26,18 @@ export default function App() {
   if (!haveFontsLoaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={lightTheme}>
-        <NavigationContainer>
-          <StatusBar barStyle="dark-content" />
-
-          <Screen />
-        </NavigationContainer>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider theme={lightTheme}>
+      <NavigationContainer>
+        <StatusBar barStyle="dark-content" />
+        <Screen />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
 
 function Screen() {
-  // return <Main />;
-  return <Auth />;
+  return <Main />;
+  // return <Auth />;
 
   // const { data: currentUser, isLoading } = useCurrentUser();
   // if (!isLoading) return null;
