@@ -4,14 +4,14 @@ import styled from "styled-components/native";
 import Hexagon from "../../../components/Hexagon";
 import TouchableScale from "../../../components/TouchableScale";
 
-export interface HomeTabHeaderButtonProps {
+export interface HomeHeaderButtonProps {
   onPress: () => void;
   photoUri?: string;
   style?: ViewStyle;
   children?: ReactNode;
 }
 
-export default function HomeTabHeaderButton(props: HomeTabHeaderButtonProps) {
+export default function HomeHeaderButton(props: HomeHeaderButtonProps) {
   const { onPress, photoUri, children, style } = props;
 
   return (

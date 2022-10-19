@@ -2,10 +2,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreateHive from "../CreateHive";
 import CreatePlan from "../CreatePlan";
 import Hive from "../Hive/Hive";
-import HomeFeed from "../HomeFeed/HomeFeed";
+import HivesFeed from "../HivesFeed";
+import Home from "../HomeFeed/HomeFeed";
 import MainRoutes from "../MainRoutes";
 import Plan from "../Plan";
-import PlanHeader from "../Plan/PlanHeader";
 import Settings from "../Settings";
 
 const Stack = createNativeStackNavigator();
@@ -13,15 +13,16 @@ const Stack = createNativeStackNavigator();
 export default function HivesTab() {
   return (
     <>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={MainRoutes.HomeFeed} component={HomeFeed} />
+      <Stack.Navigator>
+        <Stack.Screen
+          name={MainRoutes.HivesFeed}
+          component={HivesFeed}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name={MainRoutes.Plan}
           component={Plan}
-          options={{
-            headerShown: true,
-            header: (props) => <PlanHeader {...props} />,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name={MainRoutes.CreatePlan}

@@ -1,12 +1,12 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 import Avatar from "../Avatar/Avatar";
-import Hexagon from "../Hexagon";
 import Stack from "../Stack";
 
 export interface AvatarListProps {
   avatars: string[];
+  max?: number;
   size?: number;
   strokeWidth?: number;
   strokeColor?: string;
@@ -14,33 +14,54 @@ export interface AvatarListProps {
 }
 
 export default function AvatarList(props: AvatarListProps) {
-  const { avatars, size = 56, strokeWidth = 4, strokeColor, style } = props;
-
-  const theme = useTheme();
+  const {
+    avatars,
+    max = 5,
+    size = 56,
+    strokeWidth = 4,
+    strokeColor,
+    style,
+  } = props;
 
   const horizontalOffset = size / -3;
 
+  const avatarsToShow = avatars.slice(0, max);
+
   return (
     <Stack flexDirection="row" style={style}>
-      {avatars.map((it, index) => (
-        <Avatar
-          uri={it}
-          key={index}
-          size={size}
-          strokeColor={strokeColor}
-          strokeWidth={strokeWidth}
-          style={{ marginLeft: index > 0 ? horizontalOffset : 0 }}
-        />
-      ))}
+      {avatarsToShow.map((it, index) => {
+        const content = (
+          <Avatar
+            uri={it}
+            key={index}
+            size={size}
+            strokeColor={strokeColor}
+            strokeWidth={strokeWidth}
+            style={{ marginLeft: index > 0 ? horizontalOffset : 0 }}
+          />
+        );
 
-      <NumberOfPeopleGoing style={{ marginLeft: horizontalOffset }}>
-        <Hexagon
-          size={size - strokeWidth}
-          strokeColor={strokeColor}
-          backgroundColor={theme.colors.common.darkGrey}
-        />
-        <NumberOfPeopleGoingText>+51</NumberOfPeopleGoingText>
-      </NumberOfPeopleGoing>
+        if (avatars.length > 5 && index === avatarsToShow.length - 1) {
+          return (
+            <NumberOfPeopleGoing
+              key={index}
+              style={{ marginLeft: horizontalOffset }}
+            >
+              <Avatar
+                uri={it}
+                key={index}
+                size={size}
+                strokeColor={strokeColor}
+                strokeWidth={strokeWidth}
+                isDimmed={true}
+              />
+              <NumberOfPeopleGoingText>+51</NumberOfPeopleGoingText>
+            </NumberOfPeopleGoing>
+          );
+        }
+
+        return content;
+      })}
     </Stack>
   );
 }

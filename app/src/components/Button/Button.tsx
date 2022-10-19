@@ -12,6 +12,7 @@ export interface ButtonProps {
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   loading?: boolean;
+  fullWidth?: boolean;
   style?: ViewStyle;
   children: string;
   onPress: () => void;
@@ -23,7 +24,8 @@ export default function Button(props: ButtonProps) {
     size = "medium",
     startIcon,
     endIcon,
-    loading,
+    loading = false,
+    fullWidth = false,
     style,
     children,
     onPress,
@@ -32,7 +34,10 @@ export default function Button(props: ButtonProps) {
   const theme = useTheme();
 
   return (
-    <TouchableScale onPress={() => !loading && onPress()}>
+    <TouchableScale
+      onPress={() => !loading && onPress()}
+      style={{ flex: fullWidth ? 1 : undefined }}
+    >
       <Root variant={variant} size={size} style={style}>
         {startIcon && <StartIcon>{startIcon}</StartIcon>}
 

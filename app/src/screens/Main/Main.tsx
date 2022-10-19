@@ -1,50 +1,35 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import HomeTab from "./HomeTab";
+import HivesTab from "./HivesTab";
+import MainTabBar from "./MainTabBar";
 import MainRoutes from "./MainRoutes";
-import Settings from "./Settings";
-import Plan from "./Plan";
-import CreatePlan from "./CreatePlan";
-import CreateHive from "./CreateHive";
-import Hive from "./Hive";
+import HomeIcon from "../../../assets/images/icons/home.svg";
+import HivesIcon from "../../../assets/images/icons/hives.svg";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function Main() {
   return (
-    <>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={MainRoutes.HomeTab}
-          component={HomeTab}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.Plan}
-          component={Plan}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.CreatePlan}
-          component={CreatePlan}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.Hive}
-          component={Hive}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.CreateHive}
-          component={CreateHive}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.Settings}
-          component={Settings}
-          options={{ headerShown: false, presentation: "modal" }}
-        />
-      </Stack.Navigator>
-    </>
+    <Tab.Navigator screenOptions={{ headerShown: false }} tabBar={MainTabBar}>
+      <Tab.Screen
+        name={MainRoutes.HomeTab}
+        component={HomeTab}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <HomeIcon fill={color} width={size} height={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={MainRoutes.HivesTab}
+        component={HivesTab}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <HivesIcon fill={color} width={size} height={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }

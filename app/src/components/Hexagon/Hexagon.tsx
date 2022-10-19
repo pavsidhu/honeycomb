@@ -8,6 +8,7 @@ export interface HexagonProps {
   strokeWidth?: number;
   strokeColor?: string;
   backgroundColor?: string;
+  isDimmed?: boolean;
   style?: ViewStyle;
 }
 
@@ -18,6 +19,7 @@ export default function Hexagon(props: HexagonProps) {
     strokeWidth = 4,
     strokeColor: strokeColorExternal,
     backgroundColor: backgroundColorExternal,
+    isDimmed = false,
     style,
   } = props;
 
@@ -45,6 +47,15 @@ export default function Hexagon(props: HexagonProps) {
         stroke={strokeColor}
         strokeWidth={strokeWidth}
       />
+
+      {isDimmed && (
+        <Path
+          d="m40.295 14.895-4.75-8A10 10 0 0 0 26.946 2h-9.892a10 10 0 0 0-8.599 4.895l-4.75 8a10 10 0 0 0 0 10.21l4.75 8A10 10 0 0 0 17.054 38h9.892a10 10 0 0 0 8.599-4.895l4.75-8a10 10 0 0 0 0-10.21Z"
+          fill="rgba(0, 0, 0, 0.2)"
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+        />
+      )}
 
       <Defs>
         <Pattern

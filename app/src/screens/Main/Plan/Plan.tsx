@@ -1,26 +1,23 @@
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import {
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Dimensions, ScrollView, Share, StatusBar, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import styled, { useTheme } from "styled-components/native";
-import LocationIcon from "../../../../assets/images/icons/location.svg";
-import BackIcon from "../../../../assets/images/icons/back.svg";
-import ShareIcon from "../../../../assets/images/icons/share.svg";
 import Button from "../../../components/Button";
 import Sheet from "../../../components/Sheet";
 import Stack from "../../../components/Stack";
 import Icon from "../../../components/Icon";
 import TouchableScale from "../../../components/TouchableScale";
-import MainRoutes from "../MainRoutes";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
+import Avatar from "../../../components/Avatar";
+import AvatarList from "../../../components/AvatarList";
 
-export default function Plan(props: NativeStackHeaderProps) {
+export type PlanProps = NativeStackScreenProps<
+  MainRoutesParamList,
+  MainRoutes.Plan
+>;
+
+export default function Plan(props: PlanProps) {
   const { route, navigation } = props;
   const planId = route.params?.planId;
 
@@ -38,51 +35,91 @@ export default function Plan(props: NativeStackHeaderProps) {
   const dimensions = Dimensions.get("window");
   const theme = useTheme();
 
+  function handleJoinPress() {}
+
+  function handleShare() {
+    Share.share({ url: "https://honeycomb.com" });
+  }
+
+  function handleLocationPress() {}
+
   return (
     <Root>
+      <StatusBar barStyle="light-content" animated={true} />
+
       <ScrollView>
-        {/* <SafeAreaView>
-          <Header>
-            <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <BackButton>
-                <BackIcon fill={theme.colors.common.white} />
-              </BackButton>
-            </TouchableWithoutFeedback>
-          </Header>
-        </SafeAreaView> */}
-
-        <Carousel
-          width={dimensions.width}
-          height={dimensions.height * 0.6 + 24}
-          data={photos}
-          scrollAnimationDuration={200}
-          loop={false}
-          renderItem={({ item }) => (
-            <CarouselPhoto source={{ uri: item.url }} key={item.id} />
-          )}
-        />
-
-        <Sheet
-          as={View}
-          style={{ position: "relative", top: -56, padding: 24 }}
+        <View
+          style={{ width: dimensions.width, height: 300, position: "relative" }}
         >
+          <Carousel
+            width={dimensions.width}
+            height={300}
+            data={photos}
+            scrollAnimationDuration={200}
+            loop={false}
+            renderItem={({ item }) => (
+              <CarouselPhoto source={{ uri: item.url }} key={item.id} />
+            )}
+          />
+        </View>
+
+        <Sheet as={View} style={{ padding: 24 }}>
           <Stack gap={16}>
-            <Stack gap={8} style={{ alignItems: "flex-start" }}>
-              {/* <Photo /> */}
+            <Stack gap={8}>
               <TouchableScale
                 onPress={() => navigation.push(MainRoutes.Hive, { hiveId: "" })}
               >
-                <HiveName>20-30’s London Community</HiveName>
+                <Stack
+                  flexDirection="row"
+                  gap={4}
+                  style={{ alignItems: "center" }}
+                >
+                  <Avatar
+                    uri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
+                    size={32}
+                    strokeColor={theme.colors.background.secondary}
+                  />
+
+                  <HiveName>20-30’s London Community</HiveName>
+                </Stack>
               </TouchableScale>
 
-              <Title>Board games night</Title>
-              <Time>Today at 7:00pm</Time>
+              <View>
+                <Title>Board games night</Title>
+                <Time>Today at 7:00pm</Time>
+              </View>
+
+              <TouchableScale
+                onPress={() =>
+                  navigation.push(MainRoutes.PlanAttendees, { planId })
+                }
+                style={{ width: "100%" }}
+              >
+                <AvatarList
+                  avatars={[
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                  ]}
+                  max={10}
+                  size={40}
+                  strokeColor={theme.colors.background.primary}
+                />
+              </TouchableScale>
             </Stack>
 
             <Stack flexDirection="row" gap={8}>
               <Button
-                onPress={() => undefined}
+                onPress={handleShare}
                 startIcon={<Icon name="share" size={24} />}
+                fullWidth={true}
                 style={{
                   flex: 1,
                   backgroundColor: theme.colors.background.secondary,
@@ -90,12 +127,12 @@ export default function Plan(props: NativeStackHeaderProps) {
               >
                 Share
               </Button>
-              <Button onPress={() => undefined} style={{ flex: 1 }}>
-                I'm going!
+              <Button onPress={handleJoinPress} fullWidth={true}>
+                Join
               </Button>
             </Stack>
 
-            <Stack flexDirection="row" gap={8}>
+            <TouchableScale onPress={handleLocationPress}>
               <Stack
                 flexDirection="row"
                 gap={8}
@@ -107,14 +144,7 @@ export default function Plan(props: NativeStackHeaderProps) {
                   <LocationAddress>155-157 Queens Crescent</LocationAddress>
                 </Stack>
               </Stack>
-
-              <Divider />
-
-              <Stack flexDirection="row" gap={8}>
-                {/* <PhotosList /> */}
-                <PeopleGoing>51 going</PeopleGoing>
-              </Stack>
-            </Stack>
+            </TouchableScale>
 
             <Description>
               The end of the summer is now sadly approaching and so we thought
@@ -139,18 +169,7 @@ export default function Plan(props: NativeStackHeaderProps) {
 const Root = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.background.primary};
-  position: relative;
-`;
-
-const Header = styled.View`
-  position: relative;
-`;
-
-const BackButton = styled.View`
-  position: absolute;
-  left: 16px;
-  top: 16px;
-  padding: 8px;
+  /* position: relative; */
 `;
 
 const CarouselPhoto = styled.Image`
@@ -161,7 +180,7 @@ const CarouselPhoto = styled.Image`
 const HiveName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: 14px;
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const Title = styled.Text`
@@ -178,30 +197,19 @@ const Time = styled.Text`
 
 const LocationTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 16px;
+  font-size: 18px;
   color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const LocationAddress = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const PeopleGoing = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-const Divider = styled.View`
-  height: 100%;
-  width: 1px;
-  background: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const Description = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 24px;
   color: ${({ theme }) => theme.colors.text.primary};
 `;

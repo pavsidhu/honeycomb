@@ -1,15 +1,22 @@
-import { ReactNode } from "react";
+import { ElementType, ReactNode } from "react";
+import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { LightThemeProvider } from "../../theme";
 
 export interface SheetProps {
+  as?: ElementType;
+  style?: ViewStyle;
   children: ReactNode;
 }
 
 export default function Sheet(props: SheetProps) {
+  const { as, style, children } = props;
+
   return (
     <LightThemeProvider>
-      <Root>{props.children}</Root>
+      <Root as={as} style={style}>
+        {children}
+      </Root>
     </LightThemeProvider>
   );
 }

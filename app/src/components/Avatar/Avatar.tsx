@@ -7,11 +7,19 @@ export interface AvatarProps {
   size?: number;
   strokeWidth?: number;
   strokeColor?: string;
+  isDimmed?: boolean;
   style?: ViewStyle;
 }
 
 export default function Avatar(props: AvatarProps) {
-  const { uri = "", size = 56, strokeWidth = 4, strokeColor, style } = props;
+  const {
+    uri = "",
+    size = 56,
+    strokeWidth = 4,
+    strokeColor,
+    isDimmed = false,
+    style,
+  } = props;
 
   return (
     <Hexagon
@@ -19,6 +27,7 @@ export default function Avatar(props: AvatarProps) {
       size={size}
       strokeWidth={strokeWidth}
       strokeColor={strokeColor}
+      isDimmed={isDimmed}
       style={style}
     />
   );

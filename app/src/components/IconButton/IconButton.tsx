@@ -14,13 +14,14 @@ export type IconButtonEdge = "start" | "end";
 export interface IconButtonProps {
   name: keyof typeof icons;
   variant?: IconButtonVariant;
+  color?: string;
   edge?: IconButtonEdge;
   style?: ViewStyle;
   onPress: () => void;
 }
 
 export default function IconButton(props: IconButtonProps) {
-  const { name, variant = "primary", edge, style, onPress } = props;
+  const { name, variant = "primary", color, edge, style, onPress } = props;
 
   const theme = useTheme();
 
@@ -30,7 +31,11 @@ export default function IconButton(props: IconButtonProps) {
     <Root edge={edge} style={style}>
       <TouchableScale onPress={onPress}>
         <Container>
-          <Icon fill={theme.colors.icon[variant]} width={24} height={24} />
+          <Icon
+            fill={color ? color : theme.colors.icon[variant]}
+            width={24}
+            height={24}
+          />
         </Container>
       </TouchableScale>
     </Root>

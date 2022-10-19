@@ -7,14 +7,14 @@ import Avatar from "../../../../components/Avatar";
 import AvatarList from "../../../../components/AvatarList";
 import Button from "../../../../components/Button";
 
-export interface PlanCardProps {
-  plan: {};
+export interface HiveCardProps {
+  hive: {};
   onPress: () => void;
   style?: ViewStyle;
 }
 
-export default function PlanCard(props: PlanCardProps) {
-  const { plan, onPress, style } = props;
+export default function HiveCard(props: HiveCardProps) {
+  const { hive, onPress, style } = props;
 
   const theme = useTheme();
 
@@ -25,23 +25,15 @@ export default function PlanCard(props: PlanCardProps) {
           <Stack flexDirection="row" gap={4} style={{ alignItems: "center" }}>
             <Avatar
               uri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
-              size={40}
+              size={32}
               strokeColor={theme.colors.background.secondary}
             />
 
-            <DetailText>20-30’s London Community</DetailText>
+            <DetailText></DetailText>
           </Stack>
 
-          {Math.random() < 0.5 && (
-            <Photo
-              source={{
-                uri: "https://www.meetup.com/_next/image/?url=https%3A%2F%2Fsecure-content.meetupstatic.com%2Fimages%2Fclassic-events%2F503910029%2F676x380.webp&w=1200&q=75",
-              }}
-            />
-          )}
-
           <Details>
-            <Name>🎲 Board games night</Name>
+            <Name>20-30’s London Community</Name>
             <Time>Today at 7:00pm</Time>
           </Details>
 
@@ -52,15 +44,13 @@ export default function PlanCard(props: PlanCardProps) {
                 "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
                 "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
                 "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
               ]}
               size={40}
               strokeColor={theme.colors.background.secondary}
               style={{ flex: 1 }}
             />
-
-            <Button onPress={() => undefined} size="small">
-              I'm going!
-            </Button>
           </Stack>
         </Stack>
       </Root>

@@ -1,9 +1,11 @@
 import React, { ReactNode } from "react";
-import { TouchableWithoutFeedback, ViewStyle } from "react-native";
+import {
+  TouchableWithoutFeedback,
+  TouchableWithoutFeedbackProps,
+  ViewStyle,
+} from "react-native";
 import Animated, {
   Easing,
-  Extrapolate,
-  interpolate,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
@@ -15,12 +17,21 @@ const timeConfigurations = { duration: 100, easing: Easing.ease };
 export interface TouchableScaleProps {
   scale?: number;
   onPress: () => void;
+  onPressIn?: TouchableWithoutFeedbackProps["onPressIn"];
+  onPressOut?: TouchableWithoutFeedbackProps["onPressOut"];
   style?: ViewStyle;
   children: ReactNode;
 }
 
 export default function TouchableScale(props: TouchableScaleProps) {
-  const { scale = 0.9, onPress, style, children } = props;
+  const {
+    scale = 0.9,
+    onPress,
+    onPressIn,
+    onPressOut,
+    style,
+    children,
+  } = props;
 
   const pressed = useSharedValue(false);
   const progress = useDerivedValue(() =>
@@ -33,15 +44,16 @@ export default function TouchableScale(props: TouchableScaleProps) {
   return (
     <TouchableWithoutFeedback
       onPress={onPress}
-      onPressIn={() => {
+      onPressIn={(event) => {
         pressed.value = true;
+        onPressIn?.(event);
       }}
-      onPressOut={() => {
+      onPressOut={(event) => {
         pressed.value = false;
+        onPressOut?.(event);
       }}
-      style={style}
     >
-      <Animated.View style={animatedStyle}>{children}</Animated.View>
+      <Animated.View style={[animatedStyle, style]}>{children}</Animated.View>
     </TouchableWithoutFeedback>
   );
 }

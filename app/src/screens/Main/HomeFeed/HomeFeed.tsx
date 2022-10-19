@@ -1,36 +1,37 @@
+import BottomSheet from "@gorhom/bottom-sheet";
+import AddIcon from "../../../../assets/images/icons/add.svg";
+import LogoSvg from "../../../../assets/images/logo/logo.svg";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
-import styled, { useTheme } from "styled-components/native";
-import Button from "../../../components/Button";
+import React, { useRef, useState } from "react";
+import { SafeAreaView, ScrollView } from "react-native";
+import styled from "styled-components/native";
 import Sheet from "../../../components/Sheet";
-import Stack from "../../../components/Stack";
-import Icon from "../../../components/Icon";
-import TouchableScale from "../../../components/TouchableScale";
-import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 import SheetTabs from "../../../components/SheetTabs";
-import PlanCard from "../HomeFeed/PlanCard";
-import BackIcon from "../../../../assets/images/icons/back.svg";
+import Stack from "../../../components/Stack";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
+import HomeFeedHeaderButton from "./HomeHeaderButton";
+import PlanCard from "./PlanCard";
+import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
+import { YellowThemeProvider } from "../../../theme";
 
-export type HiveProps = NativeStackScreenProps<
+export type HomeFeedProps = NativeStackScreenProps<
   MainRoutesParamList,
-  MainRoutes.Hive
+  MainRoutes.HomeFeed
 >;
 
-enum HiveSheetTab {
+enum HomeFeedSheetTab {
   UpcomingPlans = "upcoming-tab",
   PastPlans = "past-plans",
 }
 
-export default function Hive(props: HiveProps) {
-  const { route, navigation } = props;
-  const hiveId = route.params?.hiveId;
+export default function HomeFeed(props: HomeFeedProps) {
+  const { navigation } = props;
 
   const [activeTabId, setActiveTabId] = useState<string>(
-    HiveSheetTab.UpcomingPlans
+    HomeFeedSheetTab.UpcomingPlans
   );
 
-  const theme = useTheme();
+  const createPlanOrHiveBottomSheetRef = useRef<BottomSheet>(null);
 
   const plans = [
     {
@@ -54,7 +55,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "2",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -74,7 +75,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "3",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -94,7 +95,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "4",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -114,7 +115,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "5",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -136,54 +137,39 @@ export default function Hive(props: HiveProps) {
   ];
 
   return (
-    <Root>
-      <ScrollView>
+    <YellowThemeProvider>
+      <Root>
         <SafeAreaView>
           <Header>
-            <Stack gap={24} style={{ alignItems: "flex-start" }}>
-              <TouchableScale onPress={navigation.goBack}>
-                <BackButton>
-                  <BackIcon fill={theme.colors.common.black} />
-                </BackButton>
-              </TouchableScale>
+            <LogoContainer>
+              <Logo />
+              <Title>Honeycomb</Title>
+            </LogoContainer>
 
-              <View>
-                <Name>20-30’s London Community</Name>
-                <Location>London, United Kingdom</Location>
-              </View>
+            <Stack flexDirection="row" gap={8}>
+              <HomeFeedHeaderButton
+                onPress={() => createPlanOrHiveBottomSheetRef.current?.expand()}
+              >
+                <AddIcon />
+              </HomeFeedHeaderButton>
 
-              <Stack flexDirection="row" gap={8}>
-                <Button
-                  onPress={() => undefined}
-                  startIcon={<Icon name="share" size={24} />}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.common.transparentWhite,
-                  }}
-                >
-                  Share
-                </Button>
-                <Button
-                  onPress={() => undefined}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.common.white,
-                  }}
-                >
-                  Join
-                </Button>
-              </Stack>
-
-              <SheetTabs
-                activeTabId={activeTabId}
-                onActiveTabIdChange={setActiveTabId}
-                tabs={[
-                  { id: HiveSheetTab.UpcomingPlans, label: "Upcoming plans" },
-                  { id: HiveSheetTab.PastPlans, label: "Past plans" },
-                ]}
+              <HomeFeedHeaderButton
+                onPress={() => props.navigation.push(MainRoutes.Settings)}
+                photoUri={
+                  "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
+                }
               />
             </Stack>
           </Header>
+
+          <SheetTabs
+            activeTabId={activeTabId}
+            onActiveTabIdChange={setActiveTabId}
+            tabs={[
+              { id: HomeFeedSheetTab.UpcomingPlans, label: "Upcoming plans" },
+              { id: HomeFeedSheetTab.PastPlans, label: "Past plans" },
+            ]}
+          />
         </SafeAreaView>
 
         <Sheet>
@@ -199,40 +185,55 @@ export default function Hive(props: HiveProps) {
             ))}
           </PlanCardStack>
         </Sheet>
-      </ScrollView>
-    </Root>
+
+        <CreatePlanOrHiveBottomSheet
+          ref={createPlanOrHiveBottomSheetRef}
+          onCreatePlanPress={() => navigation.push(MainRoutes.CreatePlan)}
+          onCreateHivePress={() => navigation.push(MainRoutes.CreateHive)}
+        />
+      </Root>
+    </YellowThemeProvider>
   );
 }
 
 const Root = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.background.primary};
-  position: relative;
 `;
 
 const Header = styled.View`
-  padding: 0 24px;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 24px;
 `;
 
-const BackButton = styled.View`
-  position: relative;
-  left: -8px;
-  top: -8px;
-  padding: 8px;
+const LogoContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
 `;
 
-const Name = styled.Text`
+const Logo = styled(LogoSvg)`
+  width: 40px;
+  height: 40px;
+  transform: rotateZ(-15deg);
+`;
+
+const Title = styled.Text`
+  margin-left: 8px;
+  font-size: 32px;
   font-family: ${({ theme }) => theme.fonts.heavy};
-  font-size: 24px;
   color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-const Location = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 18px;
-  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const PlanCardStack = styled(Stack)`
   padding: 24px;
+`;
+
+const PlanCardsTitle = styled.Text`
+  margin-left: 8px;
+  margin-top: 16px;
+  font-size: 24px;
+  font-family: ${({ theme }) => theme.fonts.heavy};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;

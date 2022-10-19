@@ -28,7 +28,7 @@ export default function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <NavigationContainer>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="dark-content" animated={true} />
         <Screen />
       </NavigationContainer>
     </ThemeProvider>
