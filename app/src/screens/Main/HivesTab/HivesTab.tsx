@@ -3,46 +3,31 @@ import CreateHive from "../CreateHive";
 import CreatePlan from "../CreatePlan";
 import Hive from "../Hive/Hive";
 import HivesFeed from "../HivesFeed";
-import Home from "../HomeFeed/HomeFeed";
 import MainRoutes from "../MainRoutes";
 import Plan from "../Plan";
 import Settings from "../Settings";
+import AccountSettings from "../AccountSettings";
 
 const Stack = createNativeStackNavigator();
 
 export default function HivesTab() {
   return (
     <>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={MainRoutes.HivesFeed}
-          component={HivesFeed}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.Plan}
-          component={Plan}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.CreatePlan}
-          component={CreatePlan}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.Hive}
-          component={Hive}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={MainRoutes.CreateHive}
-          component={CreateHive}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={MainRoutes.HivesFeed} component={HivesFeed} />
+        <Stack.Screen name={MainRoutes.Plan} component={Plan} />
+        <Stack.Screen name={MainRoutes.CreatePlan} component={CreatePlan} />
+        <Stack.Screen name={MainRoutes.Hive} component={Hive} />
+        <Stack.Screen name={MainRoutes.CreateHive} component={CreateHive} />
         <Stack.Screen
           name={MainRoutes.Settings}
           component={Settings}
-          options={{ headerShown: false, presentation: "modal" }}
+          options={{ presentation: "modal" }}
+        />
+        <Stack.Screen
+          name={MainRoutes.AccountSettings}
+          component={AccountSettings}
+          options={{ presentation: "modal" }}
         />
       </Stack.Navigator>
     </>

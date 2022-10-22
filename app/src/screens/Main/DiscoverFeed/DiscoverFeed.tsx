@@ -9,26 +9,121 @@ import Sheet from "../../../components/Sheet";
 import Stack from "../../../components/Stack";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 import HeaderButton from "../../../components/HeaderButton";
+import PlanCard from "../../../components/PlanCard";
 import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
 import { YellowThemeProvider } from "../../../theme";
-import HiveCard from "../../../components/HiveCard";
 
-export type HomeFeedProps = NativeStackScreenProps<
+export type DiscoverFeedProps = NativeStackScreenProps<
   MainRoutesParamList,
-  MainRoutes.HivesFeed
+  MainRoutes.DiscoverFeed
 >;
 
-export default function HivesFeed(props: HomeFeedProps) {
+export default function DiscoverFeed(props: DiscoverFeedProps) {
   const { navigation } = props;
 
   const createPlanOrHiveBottomSheetRef = useRef<BottomSheet>(null);
 
   const plans = [
-    { id: "0", name: "20-30s London Community", photo: "" },
-    { id: "1", name: "20-30s London Community", photo: "" },
-    { id: "2", name: "20-30s London Community", photo: "" },
-    { id: "3", name: "20-30s London Community", photo: "" },
-    { id: "4", name: "20-30s London Community", photo: "" },
+    {
+      id: "1",
+      title: "Board games night",
+      time: new Date(),
+      hive: {
+        id: "1",
+        name: "20-30s London Community",
+        photo: "",
+      },
+      attendees: {
+        total: 51,
+        list: [
+          { id: "1", name: "John", photo: "" },
+          { id: "2", name: "Mark", photo: "" },
+          { id: "3", name: "Sarah", photo: "" },
+        ],
+      },
+      location: {},
+      photo: { id: 1, uri: "" },
+    },
+    {
+      id: "2",
+      title: "Board games night",
+      time: new Date(),
+      hive: {
+        id: "1",
+        name: "20-30s London Community",
+        photo: "",
+      },
+      attendees: {
+        total: 51,
+        list: [
+          { id: "1", name: "John", photo: "" },
+          { id: "2", name: "Mark", photo: "" },
+          { id: "3", name: "Sarah", photo: "" },
+        ],
+      },
+      location: {},
+      photo: { id: 1, uri: "" },
+    },
+    {
+      id: "3",
+      title: "Board games night",
+      time: new Date(),
+      hive: {
+        id: "1",
+        name: "20-30s London Community",
+        photo: "",
+      },
+      attendees: {
+        total: 51,
+        list: [
+          { id: "1", name: "John", photo: "" },
+          { id: "2", name: "Mark", photo: "" },
+          { id: "3", name: "Sarah", photo: "" },
+        ],
+      },
+      location: {},
+      photo: { id: 1, uri: "" },
+    },
+    {
+      id: "4",
+      title: "Board games night",
+      time: new Date(),
+      hive: {
+        id: "1",
+        name: "20-30s London Community",
+        photo: "",
+      },
+      attendees: {
+        total: 51,
+        list: [
+          { id: "1", name: "John", photo: "" },
+          { id: "2", name: "Mark", photo: "" },
+          { id: "3", name: "Sarah", photo: "" },
+        ],
+      },
+      location: {},
+      photo: { id: 1, uri: "" },
+    },
+    {
+      id: "5",
+      title: "Board games night",
+      time: new Date(),
+      hive: {
+        id: "1",
+        name: "20-30s London Community",
+        photo: "",
+      },
+      attendees: {
+        total: 51,
+        list: [
+          { id: "1", name: "John", photo: "" },
+          { id: "2", name: "Mark", photo: "" },
+          { id: "3", name: "Sarah", photo: "" },
+        ],
+      },
+      location: {},
+      photo: { id: 1, uri: "" },
+    },
   ];
 
   return (
@@ -59,17 +154,17 @@ export default function HivesFeed(props: HomeFeedProps) {
         </SafeAreaView>
 
         <Sheet>
-          <HiveCardStack gap={16}>
+          <PlanCardStack gap={16}>
             {plans.map((it) => (
-              <HiveCard
-                hive={it}
+              <PlanCard
+                plan={it}
                 onPress={() =>
-                  navigation.push(MainRoutes.Hive, { hiveId: it.id })
+                  navigation.push(MainRoutes.Plan, { planId: it.id })
                 }
                 key={it.id}
               />
             ))}
-          </HiveCardStack>
+          </PlanCardStack>
         </Sheet>
 
         <CreatePlanOrHiveBottomSheet
@@ -118,6 +213,14 @@ const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text.primary};
 `;
 
-const HiveCardStack = styled(Stack)`
+const PlanCardStack = styled(Stack)`
   padding: 24px;
+`;
+
+const PlanCardsTitle = styled.Text`
+  margin-left: 8px;
+  margin-top: 16px;
+  font-size: 24px;
+  font-family: ${({ theme }) => theme.fonts.heavy};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;

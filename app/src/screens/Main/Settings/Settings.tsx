@@ -22,7 +22,7 @@ export default function Settings(props: SettingsProps) {
   const { navigation } = props;
 
   // TODO: implement
-  const accountSettings = () => undefined;
+  const accountSettings = () => navigation.push(MainRoutes.AccountSettings);
   const logOut = () => undefined;
 
   return (

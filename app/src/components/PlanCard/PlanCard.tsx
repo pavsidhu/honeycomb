@@ -1,20 +1,20 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import styled, { useTheme } from "styled-components/native";
-import Stack from "../../../../components/Stack";
-import TouchableScale from "../../../../components/TouchableScale";
-import Avatar from "../../../../components/Avatar";
-import AvatarList from "../../../../components/AvatarList";
-import Button from "../../../../components/Button";
+import Stack from "../Stack";
+import TouchableScale from "../TouchableScale";
+import Avatar from "../Avatar";
+import AvatarList from "../AvatarList";
+import Button from "../Button";
 
-export interface HiveCardProps {
-  hive: {};
+export interface PlanCardProps {
+  plan: {};
   onPress: () => void;
   style?: ViewStyle;
 }
 
-export default function HiveCard(props: HiveCardProps) {
-  const { hive, onPress, style } = props;
+export default function PlanCard(props: PlanCardProps) {
+  const { plan, onPress, style } = props;
 
   const theme = useTheme();
 
@@ -29,11 +29,19 @@ export default function HiveCard(props: HiveCardProps) {
               strokeColor={theme.colors.background.secondary}
             />
 
-            <DetailText></DetailText>
+            <DetailText>20-30’s London Community</DetailText>
           </Stack>
 
+          {Math.random() < 0.5 && (
+            <Photo
+              source={{
+                uri: "https://www.meetup.com/_next/image/?url=https%3A%2F%2Fsecure-content.meetupstatic.com%2Fimages%2Fclassic-events%2F503910029%2F676x380.webp&w=1200&q=75",
+              }}
+            />
+          )}
+
           <Details>
-            <Name>20-30’s London Community</Name>
+            <Name>🎲 Board games night</Name>
             <Time>Today at 7:00pm</Time>
           </Details>
 
@@ -51,6 +59,10 @@ export default function HiveCard(props: HiveCardProps) {
               strokeColor={theme.colors.background.secondary}
               style={{ flex: 1 }}
             />
+
+            <Button onPress={() => undefined} size="small">
+              I'm going!
+            </Button>
           </Stack>
         </Stack>
       </Root>

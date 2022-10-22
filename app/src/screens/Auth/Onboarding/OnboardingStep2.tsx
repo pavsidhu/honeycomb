@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { subYears } from "date-fns";
-import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import { StepRoot, StepTitle } from "./shared";

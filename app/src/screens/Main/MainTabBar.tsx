@@ -35,19 +35,18 @@ export default function MainTabBar(props: BottomTabBarProps) {
             }
 
             return (
-              <Tab key={route.key}>
-                <TouchableScale onPress={onPress}>
-                  <TabPill isFocused={isFocused}>
-                    {options.tabBarIcon?.({
-                      focused: isFocused,
-                      color: isFocused
-                        ? lightTheme.colors.common.transparentBlack
-                        : lightTheme.colors.common.black,
-                      size: 24,
-                    })}
-                  </TabPill>
-                </TouchableScale>
-              </Tab>
+              <TouchableScale onPress={onPress} key={route.key}>
+                <TabPill isFocused={isFocused}>
+                  {options.tabBarIcon?.({
+                    focused: isFocused,
+                    color: isFocused
+                      ? lightTheme.colors.common.transparentBlack
+                      : lightTheme.colors.common.black,
+                    size: 24,
+                  })}
+                  <TabLabel>{options.tabBarLabel}</TabLabel>
+                </TabPill>
+              </TouchableScale>
             );
           })}
         </TabsStack>
@@ -65,11 +64,18 @@ const TabsStack = styled(Stack)`
   justify-content: center;
 `;
 
-const Tab = styled.View``;
-
 const TabPill = styled.View<{ isFocused: boolean }>`
-  padding: 6px 32px;
+  width: 96px;
+  padding: 4px 0;
   border-radius: 32px;
   background: ${({ theme, isFocused }) =>
     isFocused ? theme.colors.common.yellow : theme.colors.common.lightGrey};
+  align-items: center;
+`;
+
+const TabLabel = styled.Text`
+  color: ${({ theme }) => theme.colors.common.black};
+  font-size: 14px;
+  line-height: 16px;
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;

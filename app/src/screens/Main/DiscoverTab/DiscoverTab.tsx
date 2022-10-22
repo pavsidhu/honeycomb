@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreateHive from "../CreateHive";
 import CreatePlan from "../CreatePlan";
+import DiscoverFeed from "../DiscoverFeed";
 import Hive from "../Hive/Hive";
-import HomeFeed from "../HomeFeed/HomeFeed";
 import MainRoutes from "../MainRoutes";
 import Plan from "../Plan";
 import PlanHeader from "../Plan/PlanHeader";
@@ -11,11 +11,11 @@ import AccountSettings from "../AccountSettings";
 
 const Stack = createNativeStackNavigator();
 
-export default function HivesTab() {
+export default function DiscoverTab() {
   return (
     <>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={MainRoutes.HomeFeed} component={HomeFeed} />
+        <Stack.Screen name={MainRoutes.DiscoverFeed} component={DiscoverFeed} />
         <Stack.Screen
           name={MainRoutes.Plan}
           component={Plan}

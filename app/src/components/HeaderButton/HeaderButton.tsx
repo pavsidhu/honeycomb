@@ -1,17 +1,17 @@
 import React, { ReactNode } from "react";
 import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import Hexagon from "../../../components/Hexagon";
-import TouchableScale from "../../../components/TouchableScale";
+import Hexagon from "../Hexagon";
+import TouchableScale from "../TouchableScale";
 
-export interface HomeHeaderButtonProps {
+export interface HeaderButtonProps {
   onPress: () => void;
   photoUri?: string;
   style?: ViewStyle;
   children?: ReactNode;
 }
 
-export default function HomeHeaderButton(props: HomeHeaderButtonProps) {
+export default function HeaderButton(props: HeaderButtonProps) {
   const { onPress, photoUri, children, style } = props;
 
   return (

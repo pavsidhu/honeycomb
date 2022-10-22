@@ -4,6 +4,7 @@ import styled, { useTheme } from "styled-components/native";
 import ErrorMessage from "../ErrorMessage";
 
 interface TextFieldProps extends TextInputProps {
+  label?: ReactNode;
   icon?: ReactNode;
   errorMessage?: string;
   textInputStyle?: ViewStyle;
@@ -11,12 +12,14 @@ interface TextFieldProps extends TextInputProps {
 }
 
 const TextField = forwardRef<TextInput, TextFieldProps>((props, ref) => {
-  const { icon, errorMessage, textInputStyle, style, ...rest } = props;
+  const { label, icon, errorMessage, textInputStyle, style, ...rest } = props;
 
   const theme = useTheme();
 
   return (
     <View style={style}>
+      {label && <Label>{label}</Label>}
+
       <TextFieldContainer>
         <Icon>{icon}</Icon>
 
@@ -51,6 +54,13 @@ const CustomTextInput = styled.TextInput<{ hasIcon: boolean }>`
   color: ${({ theme }) => theme.colors.input.value};
   background: ${({ theme }) => theme.colors.input.background};
   border-radius: 8px;
+`;
+
+const Label = styled.Text`
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const Icon = styled.View`

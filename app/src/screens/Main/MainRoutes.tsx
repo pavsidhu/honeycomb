@@ -1,37 +1,45 @@
 enum MainRoutes {
-  HomeTab = "Home tab",
-  HomeFeed = "Home feed",
+  HomeTab = "HomeTab",
+  HomeFeed = "HomeFeed",
 
+  DiscoverTab = "DiscoverTab",
+  DiscoverFeed = "DiscoverFeed",
+
+  HivesTab = "HivesTab",
+  HivesFeed = "HivesFeed",
+
+  CreatePlan = "CreatePlan",
   Plan = "Plan",
-  PlanAttendees = "Plan attendees",
+  PlanAttendees = "PlanAttendees",
 
-  HivesTab = "Hives tab",
-  HivesFeed = "Hives feed",
+  CreateHive = "CreateHive",
   Hive = "Hive",
-
-  CreatePlan = "Create plan",
-  CreateHive = "Create hive",
+  HiveMembers = "HiveMembers",
 
   Settings = "Settings",
+  AccountSettings = "AccountSettings",
 }
 
 export type MainRoutesParamList = {
   [MainRoutes.HomeTab]: undefined;
-  [MainRoutes.HivesTab]: undefined;
-
   [MainRoutes.HomeFeed]: undefined;
 
+  [MainRoutes.DiscoverTab]: undefined;
+  [MainRoutes.DiscoverFeed]: undefined;
+
+  [MainRoutes.HivesTab]: undefined;
+  [MainRoutes.HivesFeed]: undefined;
+
+  [MainRoutes.CreatePlan]: undefined;
   [MainRoutes.Plan]: { planId: string };
   [MainRoutes.PlanAttendees]: { planId: string };
 
-  [MainRoutes.HivesFeed]: undefined;
-
+  [MainRoutes.CreateHive]: undefined;
   [MainRoutes.Hive]: { hiveId: string };
+  [MainRoutes.HiveMembers]: { hiveId: string };
 
   [MainRoutes.Settings]: undefined;
-
-  [MainRoutes.CreatePlan]: undefined;
-  [MainRoutes.CreateHive]: undefined;
+  [MainRoutes.AccountSettings]: undefined;
 };
 
 export default MainRoutes;

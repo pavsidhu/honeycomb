@@ -6,6 +6,7 @@ import MainTabBar from "./MainTabBar";
 import MainRoutes from "./MainRoutes";
 import HomeIcon from "../../../assets/images/icons/home.svg";
 import HivesIcon from "../../../assets/images/icons/hives.svg";
+import DiscoverTab from "./DiscoverTab";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,8 +17,19 @@ export default function Main() {
         name={MainRoutes.HomeTab}
         component={HomeTab}
         options={{
+          tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <HomeIcon fill={color} width={size} height={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={MainRoutes.DiscoverTab}
+        component={DiscoverTab}
+        options={{
+          tabBarLabel: "Discover",
+          tabBarIcon: ({ color, size }) => (
+            <HivesIcon fill={color} width={size} height={size} />
           ),
         }}
       />
@@ -25,6 +37,7 @@ export default function Main() {
         name={MainRoutes.HivesTab}
         component={HivesTab}
         options={{
+          tabBarLabel: "Hives",
           tabBarIcon: ({ color, size }) => (
             <HivesIcon fill={color} width={size} height={size} />
           ),

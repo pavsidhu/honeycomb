@@ -9,8 +9,8 @@ import Sheet from "../../../components/Sheet";
 import SheetTabs from "../../../components/SheetTabs";
 import Stack from "../../../components/Stack";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
-import HomeFeedHeaderButton from "./HomeHeaderButton";
-import PlanCard from "./PlanCard";
+import HeaderButton from "../../../components/HeaderButton";
+import PlanCard from "../../../components/PlanCard";
 import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
 import { YellowThemeProvider } from "../../../theme";
 
@@ -147,13 +147,13 @@ export default function HomeFeed(props: HomeFeedProps) {
             </LogoContainer>
 
             <Stack flexDirection="row" gap={8}>
-              <HomeFeedHeaderButton
+              <HeaderButton
                 onPress={() => createPlanOrHiveBottomSheetRef.current?.expand()}
               >
                 <AddIcon />
-              </HomeFeedHeaderButton>
+              </HeaderButton>
 
-              <HomeFeedHeaderButton
+              <HeaderButton
                 onPress={() => props.navigation.push(MainRoutes.Settings)}
                 photoUri={
                   "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
@@ -188,8 +188,14 @@ export default function HomeFeed(props: HomeFeedProps) {
 
         <CreatePlanOrHiveBottomSheet
           ref={createPlanOrHiveBottomSheetRef}
-          onCreatePlanPress={() => navigation.push(MainRoutes.CreatePlan)}
-          onCreateHivePress={() => navigation.push(MainRoutes.CreateHive)}
+          onCreatePlanPress={() => {
+            navigation.push(MainRoutes.CreatePlan);
+            createPlanOrHiveBottomSheetRef.current?.close();
+          }}
+          onCreateHivePress={() => {
+            navigation.push(MainRoutes.CreateHive);
+            createPlanOrHiveBottomSheetRef.current?.close();
+          }}
         />
       </Root>
     </YellowThemeProvider>

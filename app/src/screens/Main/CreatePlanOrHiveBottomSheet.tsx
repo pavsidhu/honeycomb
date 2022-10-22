@@ -3,9 +3,11 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import { TouchableWithoutFeedback, View } from "react-native";
 import { LightThemeProvider } from "../../theme";
+import Stack from "../../components/Stack";
+import CreatePlanIcon from "../../../assets/images/icons/calendar.svg";
 
 export interface CreatePlanOrHiveBottomSheetProps {
   onCreatePlanPress: () => void;
@@ -18,9 +20,12 @@ const CreatePlanOrHiveBottomSheet = forwardRef<
 >((props, ref) => {
   const { onCreatePlanPress, onCreateHivePress } = props;
 
+  const theme = useTheme();
+
   return (
     <LightThemeProvider>
       <BottomSheet
+        enablePanDownToClose={true}
         snapPoints={[256]}
         index={-1}
         ref={ref}
@@ -37,25 +42,46 @@ const CreatePlanOrHiveBottomSheet = forwardRef<
 
           <TouchableWithoutFeedback onPress={onCreatePlanPress}>
             <ListItem>
-              {/* <Icon /> */}
-              <View>
-                <ListItemTitle>Create a new plan</ListItemTitle>
-                <ListItemSubtitle>
-                  Have an event in mind? Share it with others!
-                </ListItemSubtitle>
-              </View>
+              <Stack
+                flexDirection="row"
+                gap={8}
+                style={{ alignItems: "center" }}
+              >
+                <CreatePlanIcon
+                  width={32}
+                  height={32}
+                  fill={theme.colors.icon.primary}
+                />
+
+                <View>
+                  <ListItemTitle>Create a new plan</ListItemTitle>
+                  <ListItemSubtitle>
+                    Have an event in mind? Share it with others!
+                  </ListItemSubtitle>
+                </View>
+              </Stack>
             </ListItem>
           </TouchableWithoutFeedback>
 
           <TouchableWithoutFeedback onPress={onCreateHivePress}>
             <ListItem>
-              {/* <Icon /> */}
-              <View>
-                <ListItemTitle>Create a new hive</ListItemTitle>
-                <ListItemSubtitle>
-                  Build your own group of like-minded people!
-                </ListItemSubtitle>
-              </View>
+              <Stack
+                flexDirection="row"
+                gap={8}
+                style={{ alignItems: "center" }}
+              >
+                <CreatePlanIcon
+                  width={32}
+                  height={32}
+                  fill={theme.colors.icon.primary}
+                />
+                <View>
+                  <ListItemTitle>Create a new hive</ListItemTitle>
+                  <ListItemSubtitle>
+                    Build your own group of like-minded people!
+                  </ListItemSubtitle>
+                </View>
+              </Stack>
             </ListItem>
           </TouchableWithoutFeedback>
         </BottomSheetView>

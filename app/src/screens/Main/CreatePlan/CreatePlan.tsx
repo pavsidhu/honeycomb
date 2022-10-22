@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { SafeAreaView, Text } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native";
+import styled from "styled-components/native";
 import Button from "../../../components/Button";
+import DateTimeField from "../../../components/DateTimeField";
 import IconButton from "../../../components/IconButton";
 import Sheet from "../../../components/Sheet";
 import Stack from "../../../components/Stack";
 import TextField from "../../../components/TextField";
-import TouchableScale from "../../../components/TouchableScale";
 import { YellowThemeProvider } from "../../../theme";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
@@ -16,10 +16,20 @@ export type CreatePlanProps = NativeStackScreenProps<
   MainRoutes.CreatePlan
 >;
 
+const NAME_PLACEHOLDER_LIST = [
+  "Badminton in Brixton",
+  "Pianoworks night out",
+  "Richmond park walk",
+];
+function generateNamePlaceholder() {
+  const index = Math.floor(Math.random() * NAME_PLACEHOLDER_LIST.length);
+  return NAME_PLACEHOLDER_LIST[index];
+}
+
 export default function CreatePlan(props: CreatePlanProps) {
   const { navigation } = props;
 
-  const theme = useTheme();
+  const [namePlaceholder] = useState(generateNamePlaceholder);
 
   function handleSubmit() {}
 
@@ -45,12 +55,13 @@ export default function CreatePlan(props: CreatePlanProps) {
               gap={24}
               style={{ paddingVertical: 40, paddingHorizontal: 24 }}
             >
-              <TextField
-                placeholder="What's the name of your plan?"
-                label="Name"
-              />
+              <TextField placeholder={`e.g. ${namePlaceholder}`} label="Name" />
 
-              {/* <DateField /> */}
+              <DateTimeField
+                value={new Date()}
+                onChange={() => {}}
+                label="Date"
+              />
 
               {/* <LocationField /> */}
 

@@ -6,11 +6,13 @@ import Button from "../../../components/Button";
 import Sheet from "../../../components/Sheet";
 import Stack from "../../../components/Stack";
 import Icon from "../../../components/Icon";
-import TouchableScale from "../../../components/TouchableScale";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 import SheetTabs from "../../../components/SheetTabs";
-import PlanCard from "../HomeFeed/PlanCard";
-import BackIcon from "../../../../assets/images/icons/back.svg";
+import PlanCard from "../../../components/PlanCard";
+import { YellowThemeProvider } from "../../../theme";
+import IconButton from "../../../components/IconButton";
+import AvatarList from "../../../components/AvatarList";
+import TouchableScale from "../../../components/TouchableScale";
 
 export type HiveProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -54,7 +56,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "2",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -74,7 +76,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "3",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -94,7 +96,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "4",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -114,7 +116,7 @@ export default function Hive(props: HiveProps) {
       photo: { id: 1, uri: "" },
     },
     {
-      id: "1",
+      id: "5",
       title: "Board games night",
       time: new Date(),
       hive: {
@@ -136,71 +138,91 @@ export default function Hive(props: HiveProps) {
   ];
 
   return (
-    <Root>
-      <ScrollView>
-        <SafeAreaView>
-          <Header>
-            <Stack gap={24} style={{ alignItems: "flex-start" }}>
-              <TouchableScale onPress={navigation.goBack}>
-                <BackButton>
-                  <BackIcon fill={theme.colors.common.black} />
-                </BackButton>
-              </TouchableScale>
+    <YellowThemeProvider>
+      <Root>
+        <ScrollView>
+          <SafeAreaView>
+            <Header>
+              <Stack gap={24} style={{ alignItems: "flex-start" }}>
+                <IconButton
+                  name="back"
+                  variant="primary"
+                  onPress={navigation.goBack}
+                />
 
-              <View>
-                <Name>20-30’s London Community</Name>
-                <Location>London, United Kingdom</Location>
-              </View>
+                <View>
+                  <Name>20-30’s London Community</Name>
+                  <Location>London, United Kingdom</Location>
+                </View>
 
-              <Stack flexDirection="row" gap={8}>
-                <Button
-                  onPress={() => undefined}
-                  startIcon={<Icon name="share" size={24} />}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.common.transparentWhite,
-                  }}
+                <TouchableScale
+                  onPress={() =>
+                    navigation.push(MainRoutes.HiveMembers, { hiveId })
+                  }
                 >
-                  Share
-                </Button>
-                <Button
-                  onPress={() => undefined}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.common.white,
-                  }}
-                >
-                  Join
-                </Button>
+                  <AvatarList
+                    avatars={[
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                      "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg",
+                    ]}
+                    size={40}
+                    strokeColor={theme.colors.common.yellow}
+                  />
+                </TouchableScale>
+
+                <Stack flexDirection="row" gap={8} style={{ width: "100%" }}>
+                  <Button
+                    fullWidth={true}
+                    startIcon={<Icon name="share" size={24} />}
+                    onPress={() => undefined}
+                    style={{
+                      backgroundColor: theme.colors.common.transparentWhite,
+                    }}
+                  >
+                    Share
+                  </Button>
+
+                  <Button
+                    fullWidth={true}
+                    onPress={() => undefined}
+                    style={{ backgroundColor: theme.colors.common.white }}
+                  >
+                    Join
+                  </Button>
+                </Stack>
+
+                <SheetTabs
+                  activeTabId={activeTabId}
+                  onActiveTabIdChange={setActiveTabId}
+                  tabs={[
+                    { id: HiveSheetTab.UpcomingPlans, label: "Upcoming plans" },
+                    { id: HiveSheetTab.PastPlans, label: "Past plans" },
+                  ]}
+                />
               </Stack>
+            </Header>
+          </SafeAreaView>
 
-              <SheetTabs
-                activeTabId={activeTabId}
-                onActiveTabIdChange={setActiveTabId}
-                tabs={[
-                  { id: HiveSheetTab.UpcomingPlans, label: "Upcoming plans" },
-                  { id: HiveSheetTab.PastPlans, label: "Past plans" },
-                ]}
-              />
-            </Stack>
-          </Header>
-        </SafeAreaView>
-
-        <Sheet>
-          <PlanCardStack gap={16}>
-            {plans.map((it) => (
-              <PlanCard
-                plan={it}
-                onPress={() =>
-                  navigation.push(MainRoutes.Plan, { planId: it.id })
-                }
-                key={it.id}
-              />
-            ))}
-          </PlanCardStack>
-        </Sheet>
-      </ScrollView>
-    </Root>
+          <Sheet as={View}>
+            <PlanCardStack gap={16}>
+              {plans.map((it) => (
+                <PlanCard
+                  plan={it}
+                  onPress={() =>
+                    navigation.push(MainRoutes.Plan, { planId: it.id })
+                  }
+                  key={it.id}
+                />
+              ))}
+            </PlanCardStack>
+          </Sheet>
+        </ScrollView>
+      </Root>
+    </YellowThemeProvider>
   );
 }
 
@@ -212,13 +234,6 @@ const Root = styled.View`
 
 const Header = styled.View`
   padding: 0 24px;
-`;
-
-const BackButton = styled.View`
-  position: relative;
-  left: -8px;
-  top: -8px;
-  padding: 8px;
 `;
 
 const Name = styled.Text`
