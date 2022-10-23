@@ -2,17 +2,18 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
-import Button from "../../../components/Button";
-import Sheet from "../../../components/Sheet";
-import Stack from "../../../components/Stack";
-import Icon from "../../../components/Icon";
-import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
-import SheetTabs from "../../../components/SheetTabs";
-import PlanCard from "../../../components/PlanCard";
-import { YellowThemeProvider } from "../../../theme";
-import IconButton from "../../../components/IconButton";
+
 import AvatarList from "../../../components/AvatarList";
+import Button from "../../../components/Button";
+import Icon from "../../../components/Icon";
+import IconButton from "../../../components/IconButton";
+import PlanCard from "../../../components/PlanCard";
+import Sheet from "../../../components/Sheet";
+import SheetTabs from "../../../components/SheetTabs";
+import Stack from "../../../components/Stack";
 import TouchableScale from "../../../components/TouchableScale";
+import { YellowThemeProvider } from "../../../theme";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
 export type HiveProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -176,7 +177,7 @@ export default function Hive(props: HiveProps) {
 
                 <Stack flexDirection="row" gap={8} style={{ width: "100%" }}>
                   <Button
-                    fullWidth={true}
+                    fullWidth
                     startIcon={<Icon name="share" size={24} />}
                     onPress={() => undefined}
                     style={{
@@ -187,7 +188,7 @@ export default function Hive(props: HiveProps) {
                   </Button>
 
                   <Button
-                    fullWidth={true}
+                    fullWidth
                     onPress={() => undefined}
                     style={{ backgroundColor: theme.colors.common.white }}
                   >

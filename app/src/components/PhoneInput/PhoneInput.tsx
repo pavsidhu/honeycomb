@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components/native";
-import PickerSelect, { Item } from "react-native-picker-select";
-import countryPhoneInfo from "../../../assets/data/country-phone-info.json";
 import { View, ViewStyle } from "react-native";
-import TextField from "../TextField";
+import PickerSelect, { Item } from "react-native-picker-select";
+import styled, { useTheme } from "styled-components/native";
+
+import countryPhoneInfo from "../../../assets/data/country-phone-info.json";
 import ErrorMessage from "../ErrorMessage";
+import TextField from "../TextField";
 
 const countryPhoneCodes: Item[] = countryPhoneInfo.map((country) => ({
   label: `${country.flag} ${country.name} (${country.dial_code})`,

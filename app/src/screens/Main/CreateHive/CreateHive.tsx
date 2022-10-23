@@ -1,13 +1,19 @@
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import styled from "styled-components/native";
+
+import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import Sheet from "../../../components/Sheet";
-import Button from "../../../components/Button";
-import MainRoutes from "../MainRoutes";
 import TextField from "../../../components/TextField";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
-export default function CreateHive(props: NativeStackHeaderProps) {
+export type CreateHiveProps = NativeStackScreenProps<
+  MainRoutesParamList,
+  MainRoutes.CreateHive
+>;
+
+export default function CreateHive(props: CreateHiveProps) {
   const { navigation } = props;
 
   function handleSubmit() {
@@ -23,8 +29,8 @@ export default function CreateHive(props: NativeStackHeaderProps) {
 
       <Sheet>
         <TextField label="Name" placeholder="" />
-        <SelectField label="Location" />
-        <LongTextField label="Description" />
+        {/* <SelectField label="Location" /> */}
+        {/* <LongTextField label="Description" /> */}
 
         <Button onPress={handleSubmit}>Create hive</Button>
       </Sheet>

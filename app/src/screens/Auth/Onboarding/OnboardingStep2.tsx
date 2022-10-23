@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { subYears } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Button from "../../../components/Button";
-import IconButton from "../../../components/IconButton";
-import { StepRoot, StepTitle } from "./shared";
-import { OnboardingFormValues } from "./Onboarding";
-import ErrorMessage from "../../../components/ErrorMessage";
+import { subYears } from "date-fns";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { useTheme } from "styled-components/native";
+
+import Button from "../../../components/Button";
+import ErrorMessage from "../../../components/ErrorMessage";
+import IconButton from "../../../components/IconButton";
+import { OnboardingFormValues } from "./Onboarding";
+import { StepRoot, StepTitle } from "./shared";
 
 const MINIMUM_AGE = 18;
 const maximumDate = subYears(new Date(), MINIMUM_AGE);

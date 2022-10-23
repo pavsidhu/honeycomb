@@ -1,15 +1,16 @@
+import * as ImagePicker from "expo-image-picker";
+import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { useState } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
-import * as ImagePicker from "expo-image-picker";
-import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import Button from "../../../components/Button";
-import IconButton from "../../../components/IconButton";
-import { StepRoot, StepTitle } from "./shared";
+
 import CameraIcon from "../../../../assets/images/icons/camera.svg";
-import { OnboardingFormValues } from "./Onboarding";
-import TouchableScale from "../../../components/TouchableScale";
+import Button from "../../../components/Button";
 import ErrorMessage from "../../../components/ErrorMessage";
+import IconButton from "../../../components/IconButton";
+import TouchableScale from "../../../components/TouchableScale";
+import { OnboardingFormValues } from "./Onboarding";
+import { StepRoot, StepTitle } from "./shared";
 
 export interface OnboardingStep3Props {
   onBack: () => void;

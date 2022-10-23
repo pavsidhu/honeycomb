@@ -1,9 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+
 import AuthRoutes from "./AuthRoutes";
-import Welcome from "./Welcome";
-import Verify from "./Verify";
 import Onboarding from "./Onboarding";
+import Verify from "./Verify";
+import Welcome from "./Welcome";
 
 const Stack = createNativeStackNavigator();
 

@@ -1,4 +1,3 @@
-import "styled-components";
 import { ThemeProviderProps } from "styled-components";
 import { DefaultTheme, ThemeProvider } from "styled-components/native";
 

@@ -1,7 +1,8 @@
 import { SvgProps } from "react-native-svg";
-import LocationIcon from "../../../assets/images/icons/location.svg";
+
 import AddIcon from "../../../assets/images/icons/add.svg";
 import BackIcon from "../../../assets/images/icons/back.svg";
+import LocationIcon from "../../../assets/images/icons/location.svg";
 import ShareIcon from "../../../assets/images/icons/share.svg";
 
 const IconList = {

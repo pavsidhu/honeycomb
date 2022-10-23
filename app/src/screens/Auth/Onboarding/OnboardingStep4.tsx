@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import styled from "styled-components/native";
 import * as Notifications from "expo-notifications";
+import React, { useState } from "react";
+
 import Button from "../../../components/Button";
-import { StepRoot, StepTitle } from "./shared";
-import { OnboardingFormValues } from "./Onboarding";
 import ErrorMessage from "../../../components/ErrorMessage";
+import trpc from "../../../trpc";
+import { OnboardingFormValues } from "./Onboarding";
+import { StepRoot, StepTitle } from "./shared";
+
 export interface OnboardingStep4Props {
   formValues: OnboardingFormValues;
   onBack: () => void;
 }
 
 export default function OnboardingStep4(props: OnboardingStep4Props) {
-  const { formValues, onBack } = props;
-  const { firstName, lastName, dateOfBirth, avatar } = formValues;
+  const { formValues } = props;
+  const { firstName, lastName, dateOfBirth } = formValues;
 
+  const { mutateAsync: createUser } = trpc.user.create.useMutation();
   const [errorMessage, setErrorMessage] = useState<string>();
-
-  function setupUser() {}
-
-  function setupAvatar() {}
 
   async function setupPermissions() {
     await Notifications.requestPermissionsAsync({
@@ -32,7 +31,12 @@ export default function OnboardingStep4(props: OnboardingStep4Props) {
   }
 
   async function handleSubmit() {
-    const results = await Promise.allSettled([setupUser, setupAvatar]);
+    const user = await createUser({
+      firstName,
+      lastName,
+      dateOfBirth,
+      phoneNumber,
+    });
 
     const error = results.some(({ status }) => status === "rejected");
     if (error) {

@@ -1,14 +1,15 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import styled, { useTheme } from "styled-components/native";
-import Stack from "../Stack";
-import TouchableScale from "../TouchableScale";
+
 import Avatar from "../Avatar";
 import AvatarList from "../AvatarList";
 import Button from "../Button";
+import Stack from "../Stack";
+import TouchableScale from "../TouchableScale";
 
 export interface PlanCardProps {
-  plan: {};
+  plan: object;
   onPress: () => void;
   style?: ViewStyle;
 }

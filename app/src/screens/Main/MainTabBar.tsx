@@ -1,10 +1,11 @@
-import React from "react";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { SafeAreaView } from "react-native";
 import styled from "styled-components/native";
+
+import Stack from "../../components/Stack";
 import TouchableScale from "../../components/TouchableScale";
 import { lightTheme } from "../../theme";
-import { SafeAreaView } from "react-native";
-import Stack from "../../components/Stack";
 
 export default function MainTabBar(props: BottomTabBarProps) {
   const { state, descriptors, navigation } = props;

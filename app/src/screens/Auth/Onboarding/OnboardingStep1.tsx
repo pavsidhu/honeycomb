@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Keyboard, TextInput as RNTextInput, View } from "react-native";
 import { useTheme } from "styled-components/native";
+
 import Button from "../../../components/Button";
-import Stack from "../../../components/Stack";
 import TextInput from "../../../components/TextField";
 import { OnboardingFormValues } from "./Onboarding";
 import { StepRoot, StepTitle } from "./shared";
@@ -61,7 +61,7 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
       <StepTitle>What's your name?</StepTitle>
 
       <TextInput
-        autoFocus={true}
+        autoFocus
         placeholder="First name"
         errorMessage={firstNameErrorMessage}
         returnKeyType="next"

@@ -1,17 +1,18 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import AddIcon from "../../../../assets/images/icons/add.svg";
-import LogoSvg from "../../../../assets/images/logo/logo.svg";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useRef } from "react";
 import { SafeAreaView } from "react-native";
 import styled from "styled-components/native";
+
+import AddIcon from "../../../../assets/images/icons/add.svg";
+import LogoSvg from "../../../../assets/images/logo/logo.svg";
+import HeaderButton from "../../../components/HeaderButton";
+import HiveCard from "../../../components/HiveCard";
 import Sheet from "../../../components/Sheet";
 import Stack from "../../../components/Stack";
-import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
-import HeaderButton from "../../../components/HeaderButton";
-import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
 import { YellowThemeProvider } from "../../../theme";
-import HiveCard from "../../../components/HiveCard";
+import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
 export type HomeFeedProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -50,9 +51,7 @@ export default function HivesFeed(props: HomeFeedProps) {
 
               <HeaderButton
                 onPress={() => props.navigation.push(MainRoutes.Settings)}
-                photoUri={
-                  "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
-                }
+                photoUri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
               />
             </Stack>
           </Header>

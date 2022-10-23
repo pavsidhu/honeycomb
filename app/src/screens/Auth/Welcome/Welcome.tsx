@@ -1,15 +1,16 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import Constants from "expo-constants";
 import React, { useState } from "react";
 import { KeyboardAvoidingView, Linking, SafeAreaView } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled, { useTheme } from "styled-components/native";
-import Constants from "expo-constants";
-import Button from "../../../components/Button";
-import PhoneInput from "../../../components/PhoneInput";
+
 import LogoSvg from "../../../../assets/images/logo/logo.svg";
-import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
+import Button from "../../../components/Button";
 import DismissKeyboard from "../../../components/DismissKeyboard";
+import PhoneInput from "../../../components/PhoneInput";
 import Stack from "../../../components/Stack";
 import { YellowThemeProvider } from "../../../theme";
+import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
 
 const openTerms = () =>
   Linking.openURL(Constants.manifest?.extra?.termsOfServiceUrl);

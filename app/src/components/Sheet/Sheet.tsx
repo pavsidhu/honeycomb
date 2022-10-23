@@ -1,6 +1,7 @@
 import { ElementType, ReactNode } from "react";
 import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
+
 import { LightThemeProvider } from "../../theme";
 
 export interface SheetProps {

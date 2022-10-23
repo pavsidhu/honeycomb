@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -6,14 +7,14 @@ import {
   TextInput as RNTextInput,
   View,
 } from "react-native";
-import Button from "../../../components/Button";
 import styled, { useTheme } from "styled-components/native";
-import TextInput from "../../../components/TextField";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
+
+import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
-import { YellowThemeProvider } from "../../../theme";
 import Stack from "../../../components/Stack";
+import TextInput from "../../../components/TextField";
+import { YellowThemeProvider } from "../../../theme";
+import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
 
 const validCodeRegex = /^[0-9]{6}$/;
 

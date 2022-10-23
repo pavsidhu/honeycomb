@@ -1,14 +1,15 @@
-import React, { useRef, useState } from "react";
-import { Dimensions, FlatList, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React, { useRef, useState } from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
+
+import { YellowThemeProvider } from "../../../theme";
 import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
-import ProgressBar from "./ProgressBar";
 import OnboardingStep1 from "./OnboardingStep1";
 import OnboardingStep2 from "./OnboardingStep2";
 import OnboardingStep3 from "./OnboardingStep3";
 import OnboardingStep4 from "./OnboardingStep4";
-import { YellowThemeProvider } from "../../../theme";
+import ProgressBar from "./ProgressBar";
 
 export interface OnboardingFormValues {
   firstName?: string;
@@ -73,7 +74,7 @@ export default function Onboarding(props: OnboardingProps) {
 
         <FlatList
           ref={flatListRef}
-          horizontal={true}
+          horizontal
           scrollEnabled={false}
           data={pages}
           renderItem={(info) => info.item}

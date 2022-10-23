@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { Keyboard, TouchableWithoutFeedback, ViewStyle } from "react-native";
 
-export interface DismissKeyboardProps extends PropsWithChildren<{}> {
+export interface DismissKeyboardProps extends PropsWithChildren<object> {
   style?: ViewStyle;
 }
 

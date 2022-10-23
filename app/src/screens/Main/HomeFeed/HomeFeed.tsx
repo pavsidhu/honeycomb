@@ -1,18 +1,19 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import AddIcon from "../../../../assets/images/icons/add.svg";
-import LogoSvg from "../../../../assets/images/logo/logo.svg";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useRef, useState } from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native";
 import styled from "styled-components/native";
+
+import AddIcon from "../../../../assets/images/icons/add.svg";
+import LogoSvg from "../../../../assets/images/logo/logo.svg";
+import HeaderButton from "../../../components/HeaderButton";
+import PlanCard from "../../../components/PlanCard";
 import Sheet from "../../../components/Sheet";
 import SheetTabs from "../../../components/SheetTabs";
 import Stack from "../../../components/Stack";
-import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
-import HeaderButton from "../../../components/HeaderButton";
-import PlanCard from "../../../components/PlanCard";
-import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
 import { YellowThemeProvider } from "../../../theme";
+import CreatePlanOrHiveBottomSheet from "../CreatePlanOrHiveBottomSheet";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
 export type HomeFeedProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -155,9 +156,7 @@ export default function HomeFeed(props: HomeFeedProps) {
 
               <HeaderButton
                 onPress={() => props.navigation.push(MainRoutes.Settings)}
-                photoUri={
-                  "https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
-                }
+                photoUri="https://yikofvxolafrzkwwcnuh.supabase.co/storage/v1/object/public/avatars/bb7d6c86-bf74-4cfd-9e58-0601f0cfe812/avatar.jpg"
               />
             </Stack>
           </Header>
@@ -234,12 +233,4 @@ const Title = styled.Text`
 
 const PlanCardStack = styled(Stack)`
   padding: 24px;
-`;
-
-const PlanCardsTitle = styled.Text`
-  margin-left: 8px;
-  margin-top: 16px;
-  font-size: 24px;
-  font-family: ${({ theme }) => theme.fonts.heavy};
-  color: ${({ theme }) => theme.colors.text.primary};
 `;

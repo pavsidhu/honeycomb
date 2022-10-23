@@ -1,14 +1,10 @@
 import { PropsWithChildren } from "react";
-import {
-  Dimensions,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 import styled from "styled-components/native";
+
 import Stack from "../../../components/Stack";
 
-export function StepRoot(props: PropsWithChildren<{}>) {
+export function StepRoot(props: PropsWithChildren<object>) {
   return (
     <Root>
       <KeyboardAvoidingView

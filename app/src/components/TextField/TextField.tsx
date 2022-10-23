@@ -1,9 +1,10 @@
 import React, { forwardRef, ReactNode } from "react";
 import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import styled, { useTheme } from "styled-components/native";
+
 import ErrorMessage from "../ErrorMessage";
 
-interface TextFieldProps extends TextInputProps {
+export interface TextFieldProps extends TextInputProps {
   label?: ReactNode;
   icon?: ReactNode;
   errorMessage?: string;

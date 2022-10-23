@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import AccountSettings from "../AccountSettings";
 import CreateHive from "../CreateHive";
 import CreatePlan from "../CreatePlan";
 import Hive from "../Hive/Hive";
@@ -6,7 +8,6 @@ import HivesFeed from "../HivesFeed";
 import MainRoutes from "../MainRoutes";
 import Plan from "../Plan";
 import Settings from "../Settings";
-import AccountSettings from "../AccountSettings";
 
 const Stack = createNativeStackNavigator();
 

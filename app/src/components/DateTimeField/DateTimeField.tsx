@@ -1,12 +1,12 @@
 import { format as formatDate } from "date-fns";
 import React, { ReactNode, useState } from "react";
 import { TouchableWithoutFeedback, ViewStyle } from "react-native";
-import styled from "styled-components/native";
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
 } from "react-native-modal-datetime-picker";
+import styled from "styled-components/native";
 
-interface DateTimeFieldProps
+export interface DateTimeFieldProps
   extends Omit<
     ReactNativeModalDateTimePickerProps,
     "onChange" | "onConfirm" | "onCancel" | "style"

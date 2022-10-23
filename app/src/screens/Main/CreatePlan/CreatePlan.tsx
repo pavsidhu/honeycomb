@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native";
 import styled from "styled-components/native";
+
 import Button from "../../../components/Button";
 import DateTimeField from "../../../components/DateTimeField";
 import IconButton from "../../../components/IconButton";
@@ -68,7 +69,7 @@ export default function CreatePlan(props: CreatePlanProps) {
               <TextField
                 placeholder="Any extra details to add?"
                 label="Description"
-                multiline={true}
+                multiline
                 textInputStyle={{ height: 120 }}
               />
 

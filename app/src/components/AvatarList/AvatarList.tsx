@@ -1,6 +1,7 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
+
 import Avatar from "../Avatar/Avatar";
 import Stack from "../Stack";
 
@@ -53,7 +54,7 @@ export default function AvatarList(props: AvatarListProps) {
                 size={size}
                 strokeColor={strokeColor}
                 strokeWidth={strokeWidth}
-                isDimmed={true}
+                isDimmed
               />
               <NumberOfPeopleGoingText>+51</NumberOfPeopleGoingText>
             </NumberOfPeopleGoing>

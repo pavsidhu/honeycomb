@@ -3,14 +3,15 @@ import React from "react";
 import { Dimensions, ScrollView, Share, StatusBar, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import styled, { useTheme } from "styled-components/native";
-import Button from "../../../components/Button";
-import Sheet from "../../../components/Sheet";
-import Stack from "../../../components/Stack";
-import Icon from "../../../components/Icon";
-import TouchableScale from "../../../components/TouchableScale";
-import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
+
 import Avatar from "../../../components/Avatar";
 import AvatarList from "../../../components/AvatarList";
+import Button from "../../../components/Button";
+import Icon from "../../../components/Icon";
+import Sheet from "../../../components/Sheet";
+import Stack from "../../../components/Stack";
+import TouchableScale from "../../../components/TouchableScale";
+import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 
 export type PlanProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -45,7 +46,7 @@ export default function Plan(props: PlanProps) {
 
   return (
     <Root>
-      <StatusBar barStyle="light-content" animated={true} />
+      <StatusBar barStyle="light-content" animated />
 
       <ScrollView>
         <View
@@ -119,7 +120,7 @@ export default function Plan(props: PlanProps) {
               <Button
                 onPress={handleShare}
                 startIcon={<Icon name="share" size={24} />}
-                fullWidth={true}
+                fullWidth
                 style={{
                   flex: 1,
                   backgroundColor: theme.colors.background.secondary,
@@ -127,7 +128,7 @@ export default function Plan(props: PlanProps) {
               >
                 Share
               </Button>
-              <Button onPress={handleJoinPress} fullWidth={true}>
+              <Button onPress={handleJoinPress} fullWidth>
                 Join
               </Button>
             </Stack>

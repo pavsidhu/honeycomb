@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import HomeTab from "./HomeTab";
-import HivesTab from "./HivesTab";
-import MainTabBar from "./MainTabBar";
-import MainRoutes from "./MainRoutes";
-import HomeIcon from "../../../assets/images/icons/home.svg";
+
 import HivesIcon from "../../../assets/images/icons/hives.svg";
+import HomeIcon from "../../../assets/images/icons/home.svg";
 import DiscoverTab from "./DiscoverTab";
+import HivesTab from "./HivesTab";
+import HomeTab from "./HomeTab";
+import MainRoutes from "./MainRoutes";
+import MainTabBar from "./MainTabBar";
 
 const Tab = createBottomTabNavigator();
 

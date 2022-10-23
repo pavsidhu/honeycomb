@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import styled, { useTheme } from "styled-components/native";
 import { ActivityIndicator, ViewStyle } from "react-native";
+import styled, { useTheme } from "styled-components/native";
+
 import TouchableScale from "../TouchableScale";
 
 export type ButtonVariant = "primary" | "secondary";

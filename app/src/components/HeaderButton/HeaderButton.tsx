@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
+
 import Hexagon from "../Hexagon";
 import TouchableScale from "../TouchableScale";
 

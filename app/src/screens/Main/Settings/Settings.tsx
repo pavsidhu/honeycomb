@@ -1,19 +1,20 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import Constants from "expo-constants";
 import React from "react";
 import { Linking, ScrollView } from "react-native";
 import styled from "styled-components/native";
-import Constants from "expo-constants";
+
+import Stack from "../../../components/Stack";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
 import SettingsItem from "./SettingsItem";
 import UserCard from "./UserCard";
-import Stack from "../../../components/Stack";
 
 const openTerms = () =>
   Linking.openURL(Constants.manifest?.extra?.termsOfServiceUrl);
 const openPrivacy = () =>
   Linking.openURL(Constants.manifest?.extra?.privacyPolicyUrl);
 
-type SettingsProps = NativeStackScreenProps<
+export type SettingsProps = NativeStackScreenProps<
   MainRoutesParamList,
   MainRoutes.Settings
 >;

@@ -19,6 +19,7 @@ export default {
       backgroundColor: "#FFC72D",
     },
     extra: {
+      apiUrl: process.env.API_URL,
       termsOfServiceUrl: process.env.TERMS_OF_SERVICE_URL,
       privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     },

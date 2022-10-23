@@ -1,13 +1,14 @@
-import React, { forwardRef } from "react";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import styled, { useTheme } from "styled-components/native";
+import React, { forwardRef } from "react";
 import { TouchableWithoutFeedback, View } from "react-native";
-import { LightThemeProvider } from "../../theme";
-import Stack from "../../components/Stack";
+import styled, { useTheme } from "styled-components/native";
+
 import CreatePlanIcon from "../../../assets/images/icons/calendar.svg";
+import Stack from "../../components/Stack";
+import { LightThemeProvider } from "../../theme";
 
 export interface CreatePlanOrHiveBottomSheetProps {
   onCreatePlanPress: () => void;
@@ -25,7 +26,7 @@ const CreatePlanOrHiveBottomSheet = forwardRef<
   return (
     <LightThemeProvider>
       <BottomSheet
-        enablePanDownToClose={true}
+        enablePanDownToClose
         snapPoints={[256]}
         index={-1}
         ref={ref}

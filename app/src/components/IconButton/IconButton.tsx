@@ -1,8 +1,9 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import styled, { css, useTheme } from "styled-components/native";
-import TouchableScale from "../TouchableScale";
+
 import BackIcon from "../../../assets/images/icons/back.svg";
+import TouchableScale from "../TouchableScale";
 
 const icons = {
   back: BackIcon,

@@ -1,5 +1,6 @@
 import React from "react";
 import { ViewStyle } from "react-native";
+
 import Hexagon from "../Hexagon";
 
 export interface AvatarProps {

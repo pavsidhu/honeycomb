@@ -1,8 +1,8 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
-import Constants from "expo-constants";
 import React from "react";
 import styled, { useTheme } from "styled-components/native";
+
 import IconButton from "../../../components/IconButton";
 
 export default function PlanHeader(props: NativeStackHeaderProps) {

@@ -1,10 +1,11 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import Stack from "../../../components/Stack";
-import IconButton from "../../../components/IconButton";
-import { YellowThemeProvider } from "../../../theme";
+
 import Avatar from "../../../components/Avatar";
+import IconButton from "../../../components/IconButton";
+import Stack from "../../../components/Stack";
+import { YellowThemeProvider } from "../../../theme";
 
 export interface UserCardProps {
   onBackPress: () => void;

@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { View, ViewStyle } from "react-native";
 
-interface StackProps extends PropsWithChildren<{}> {
+export interface StackProps extends PropsWithChildren<object> {
   flexDirection?: "row" | "column";
   gap?: number;
   divider?: ReactNode;
