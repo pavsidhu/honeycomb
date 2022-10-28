@@ -1,28 +1,21 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/client";
-import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import "react-native-url-polyfill/auto";
 
 import Auth from "./screens/Auth";
 import { baseTheme, lightTheme } from "./theme";
-import trpc from "./trpc";
+import trpc, { trpcClient } from "./trpc";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
-  const [queryClient] = useState(() => new QueryClient());
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [httpBatchLink({ url: Constants.manifest?.extra?.apiUrl })],
-    })
-  );
+const queryClient = new QueryClient();
 
+export default function App() {
   const [haveFontsLoaded] = useFonts({
     [baseTheme.fonts.regular]: require("../assets/fonts/TextaAlt-Regular.ttf"),
     [baseTheme.fonts.medium]: require("../assets/fonts/TextaAlt-Medium.ttf"),
