@@ -119,8 +119,9 @@ const Subtitle = styled.Text`
 
 const Legal = styled.Text`
   font-size: 14px;
-  text-align: center;
+  font-family: ${({ theme }) => theme.fonts.medium};
   color: ${({ theme }) => theme.colors.text.secondary};
+  text-align: center;
 `;
 
 const Link = styled.Text`

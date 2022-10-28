@@ -19,6 +19,7 @@ export interface TouchableScaleProps {
   onPress: () => void;
   onPressIn?: TouchableWithoutFeedbackProps["onPressIn"];
   onPressOut?: TouchableWithoutFeedbackProps["onPressOut"];
+  disabled?: boolean;
   style?: ViewStyle;
   children: ReactNode;
 }
@@ -29,6 +30,7 @@ export default function TouchableScale(props: TouchableScaleProps) {
     onPress,
     onPressIn,
     onPressOut,
+    disabled,
     style,
     children,
   } = props;
@@ -43,6 +45,7 @@ export default function TouchableScale(props: TouchableScaleProps) {
 
   return (
     <TouchableWithoutFeedback
+      disabled={disabled}
       onPress={onPress}
       onPressIn={(event) => {
         pressed.value = true;

@@ -4,17 +4,12 @@ import React, { useState } from "react";
 import Button from "../../../components/Button";
 import ErrorMessage from "../../../components/ErrorMessage";
 import trpc from "../../../trpc";
-import { OnboardingFormValues } from "./Onboarding";
 import { StepRoot, StepTitle } from "./shared";
 
-export interface OnboardingStep4Props {
-  formValues: OnboardingFormValues;
-  onBack: () => void;
-}
+export interface OnboardingStep4Props {}
 
 export default function OnboardingStep4(props: OnboardingStep4Props) {
-  const { formValues } = props;
-  const { firstName, lastName, dateOfBirth } = formValues;
+  const {} = props;
 
   const { mutateAsync: createUser } = trpc.user.create.useMutation();
   const [errorMessage, setErrorMessage] = useState<string>();

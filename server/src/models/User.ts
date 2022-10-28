@@ -1,4 +1,4 @@
-import { Model } from "objection";
+import { JSONSchema, Model } from "objection";
 
 export default class User extends Model {
   firstName: string;
@@ -7,7 +7,8 @@ export default class User extends Model {
   dateOfBirth: string;
 
   static tableName = "users";
-  static jsonSchema = {
+
+  static jsonSchema: JSONSchema = {
     type: "object",
     required: ["firstName", "lastName", "phoneNumber", "dateOfBirth"],
     properties: {

@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.3",
+    "eslint-config-universe": "^11.1.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "nodemon": "^2.0.20",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
@@ -17,9 +19,11 @@
   },
   "dependencies": {
     "@trpc/server": "^10.0.0-proxy-beta.25",
+    "date-fns": "^2.29.3",
     "knex": "^2.3.0",
     "objection": "^3.0.1",
     "pg": "^8.8.0",
+    "superjson": "^1.11.0",
     "zod": "^3.19.1"
   }
 }

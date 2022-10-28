@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
-import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import React, { useState } from "react";
+import React from "react";
+import { Control } from "react-hook-form";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
@@ -9,17 +9,17 @@ import Button from "../../../components/Button";
 import ErrorMessage from "../../../components/ErrorMessage";
 import IconButton from "../../../components/IconButton";
 import TouchableScale from "../../../components/TouchableScale";
-import { OnboardingFormValues } from "./Onboarding";
+import { OnboardingSchema } from "./onboardingSchema";
 import { StepRoot, StepTitle } from "./shared";
 
 export interface OnboardingStep3Props {
+  control: Control<OnboardingSchema, any>;
   onBack: () => void;
-  onSubmit: (formValues: OnboardingFormValues) => void;
+  onSubmit: () => void;
 }
 
 export default function OnboardingStep3(props: OnboardingStep3Props) {
-  const [avatar, setAvatar] = useState<ImageInfo>();
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const { control, onBack, onSubmit } = props;
 
   async function selectPhoto() {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,15 +39,15 @@ export default function OnboardingStep3(props: OnboardingStep3Props) {
       return;
     }
 
-    props.onSubmit({ avatar: avatar.base64 });
+    onSubmit({ avatar: avatar.base64 });
   }
 
   return (
     <StepRoot>
       <Navigation>
-        <IconButton name="back" edge="start" onPress={props.onBack} />
+        <IconButton name="back" edge="start" onPress={onBack} />
 
-        <TouchableScale onPress={() => props.onSubmit({})}>
+        <TouchableScale onPress={onSubmit}>
           <SkipText>Skip</SkipText>
         </TouchableScale>
       </Navigation>
@@ -56,9 +56,9 @@ export default function OnboardingStep3(props: OnboardingStep3Props) {
 
       <AvatarContainer>
         <TouchableScale onPress={selectPhoto}>
-          {avatar ? (
-            <AvatarPreview source={{ uri: avatar.uri }} />
-          ) : (
+          {avatar && <AvatarPreview source={{ uri: avatar.uri }} />}
+
+          {!avatar && (
             <AvatarPreview as={View}>
               <CameraIcon width={40} height={40} />
             </AvatarPreview>
@@ -68,7 +68,9 @@ export default function OnboardingStep3(props: OnboardingStep3Props) {
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </AvatarContainer>
 
-      {avatar && <Button onPress={handleSubmit}>Continue</Button>}
+      <Button onPress={handleSubmit} disabled={!avatar}>
+        Continue
+      </Button>
     </StepRoot>
   );
 }

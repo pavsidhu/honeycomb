@@ -1,8 +1,8 @@
+import { hiveRouter } from "./routers/hive";
+import { planRouter } from "./routers/plan";
 import { userRouter } from "./routers/user";
-import { router } from "./trpc";
+import { mergeRouters } from "./trpc";
 
-const appRouter = router({
-  user: userRouter,
-});
+const appRouter = mergeRouters(userRouter, hiveRouter, planRouter);
 
 export type AppRouter = typeof appRouter;

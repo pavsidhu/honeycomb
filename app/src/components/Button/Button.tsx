@@ -14,6 +14,7 @@ export interface ButtonProps {
   endIcon?: ReactNode;
   loading?: boolean;
   fullWidth?: boolean;
+  disabled?: boolean;
   style?: ViewStyle;
   children: string;
   onPress: () => void;
@@ -27,6 +28,7 @@ export default function Button(props: ButtonProps) {
     endIcon,
     loading = false,
     fullWidth = false,
+    disabled = false,
     style,
     children,
     onPress,
@@ -37,6 +39,7 @@ export default function Button(props: ButtonProps) {
   return (
     <TouchableScale
       onPress={() => !loading && onPress()}
+      disabled={disabled}
       style={{ flex: fullWidth ? 1 : undefined }}
     >
       <Root variant={variant} size={size} style={style}>

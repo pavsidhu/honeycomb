@@ -1,58 +1,22 @@
-import React, { useRef, useState } from "react";
-import { Keyboard, TextInput as RNTextInput, View } from "react-native";
+import React from "react";
+import { Control } from "react-hook-form";
+import { View } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import Button from "../../../components/Button";
-import TextInput from "../../../components/TextField";
-import { OnboardingFormValues } from "./Onboarding";
+import TextFieldRhf from "../../../components/TextFieldRhf";
+import { OnboardingSchema } from "./onboardingSchema";
 import { StepRoot, StepTitle } from "./shared";
 
 export interface OnboardingStep1Props {
-  onSubmit: (formValues: OnboardingFormValues) => void;
+  control: Control<OnboardingSchema, any>;
+  onSubmit: () => void;
 }
 
 export default function OnboardingStep1(props: OnboardingStep1Props) {
-  const { onSubmit } = props;
+  const { control, onSubmit } = props;
 
-  const [firstName, setFirstName] = useState<string>();
-  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [lastNameErrorMessage, setLastNameErrorMessage] = useState<string>();
-  const [isLoading, setIsLoading] = useState(false);
-  const lastNameRef = useRef<RNTextInput>(null);
   const theme = useTheme();
-
-  function handleSubmit() {
-    setIsLoading(true);
-
-    let hasError = false;
-
-    if (!firstName || firstName.trim().length === 0) {
-      setFirstNameErrorMessage("Please enter your first name");
-      hasError = true;
-    } else {
-      setFirstNameErrorMessage(undefined);
-    }
-
-    if (!lastName || lastName.trim().length === 0) {
-      setLastNameErrorMessage("Please enter your last name");
-      hasError = true;
-    } else {
-      setLastNameErrorMessage(undefined);
-    }
-
-    if (hasError) {
-      setIsLoading(false);
-      return;
-    }
-
-    setFirstNameErrorMessage(undefined);
-    setLastNameErrorMessage(undefined);
-    setIsLoading(false);
-
-    Keyboard.dismiss();
-    onSubmit({ firstName, lastName });
-  }
 
   return (
     <StepRoot>
@@ -60,28 +24,23 @@ export default function OnboardingStep1(props: OnboardingStep1Props) {
 
       <StepTitle>What's your name?</StepTitle>
 
-      <TextInput
+      <TextFieldRhf
         autoFocus
+        name="firstName"
+        control={control}
         placeholder="First name"
-        errorMessage={firstNameErrorMessage}
         returnKeyType="next"
-        value={firstName}
-        onChangeText={setFirstName}
-        onSubmitEditing={() => lastNameRef.current?.focus()}
       />
-      <TextInput
+      <TextFieldRhf
+        name="lastName"
+        control={control}
         placeholder="Last name"
-        errorMessage={lastNameErrorMessage}
         returnKeyType="next"
-        value={lastName}
-        onChangeText={setLastName}
-        onSubmitEditing={handleSubmit}
-        ref={lastNameRef}
+        onSubmitEditing={onSubmit}
       />
 
       <Button
-        loading={isLoading}
-        onPress={handleSubmit}
+        onPress={onSubmit}
         style={{ backgroundColor: theme.colors.common.blue }}
       >
         Continue

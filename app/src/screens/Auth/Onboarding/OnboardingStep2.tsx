@@ -1,37 +1,24 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { subYears } from "date-fns";
-import React, { useState } from "react";
+import React from "react";
+import { Control } from "react-hook-form";
 import { View } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import Button from "../../../components/Button";
-import ErrorMessage from "../../../components/ErrorMessage";
+import DateTimeFieldRhf from "../../../components/DateTimeFieldRhf";
 import IconButton from "../../../components/IconButton";
-import { OnboardingFormValues } from "./Onboarding";
+import { maxDateOfBirth, OnboardingSchema } from "./onboardingSchema";
 import { StepRoot, StepTitle } from "./shared";
 
-const MINIMUM_AGE = 18;
-const maximumDate = subYears(new Date(), MINIMUM_AGE);
-
 export interface OnboardingStep2Props {
+  control: Control<OnboardingSchema, any>;
   onBack: () => void;
-  onSubmit: (formValues: OnboardingFormValues) => void;
+  onSubmit: () => void;
 }
 
 export default function OnboardingStep2(props: OnboardingStep2Props) {
-  const [dateOfBirth, setDateOfBirth] = useState<Date | undefined>(maximumDate);
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const { control, onSubmit } = props;
+
   const theme = useTheme();
-
-  function handleSubmit() {
-    if (!dateOfBirth) {
-      setErrorMessage("Please enter your date of birth");
-      return;
-    }
-
-    setErrorMessage(undefined);
-    props.onSubmit({ dateOfBirth: dateOfBirth.toISOString() });
-  }
 
   return (
     <StepRoot>
@@ -41,18 +28,14 @@ export default function OnboardingStep2(props: OnboardingStep2Props) {
 
       <StepTitle>When's your birthday?</StepTitle>
 
-      <DateTimePicker
-        display="spinner"
-        value={dateOfBirth ?? maximumDate}
-        onChange={(_, date) => setDateOfBirth(date)}
-        maximumDate={maximumDate}
-        style={{ backgroundColor: "rgba(255,255,255,0.4)" }}
+      <DateTimeFieldRhf
+        name="dateOfBirth"
+        control={control}
+        maximumDate={maxDateOfBirth}
       />
 
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-
       <Button
-        onPress={handleSubmit}
+        onPress={onSubmit}
         style={{ backgroundColor: theme.colors.common.blue }}
       >
         Continue

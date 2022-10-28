@@ -1,5 +1,5 @@
 import { format as formatDate } from "date-fns";
-import React, { ReactNode, useState } from "react";
+import { ReactNode, forwardRef, useState } from "react";
 import { TouchableWithoutFeedback, ViewStyle } from "react-native";
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
@@ -18,35 +18,40 @@ export interface DateTimeFieldProps
   style?: ViewStyle;
 }
 
-export default function DateTimeField(props: DateTimeFieldProps) {
-  const { value, onChange, label, errorMessage, style, ...rest } = props;
+const DateTimeField = forwardRef<DateTimePickerModal, DateTimeFieldProps>(
+  (props, ref) => {
+    const { value, onChange, label, errorMessage, style, ...rest } = props;
 
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-  return (
-    <Root style={style}>
-      {label && <Label>{label}</Label>}
+    return (
+      <Root style={style}>
+        {label && <Label>{label}</Label>}
 
-      <TouchableWithoutFeedback onPress={() => setIsPickerOpen(true)}>
-        <Container>
-          <Value>{formatDate(value, "do MMMM h:maaa")}</Value>
-        </Container>
-      </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => setIsPickerOpen(true)}>
+          <Container>
+            <Value>{formatDate(value, "do MMMM h:maaa")}</Value>
+          </Container>
+        </TouchableWithoutFeedback>
 
-      <DateTimePickerModal
-        isVisible={isPickerOpen}
-        mode="datetime"
-        themeVariant="light"
-        onConfirm={(date) => {
-          onChange(date);
-          setIsPickerOpen(false);
-        }}
-        onCancel={() => setIsPickerOpen(false)}
-        {...rest}
-      />
-    </Root>
-  );
-}
+        <DateTimePickerModal
+          isVisible={isPickerOpen}
+          mode="datetime"
+          themeVariant="light"
+          onConfirm={(date) => {
+            onChange(date);
+            setIsPickerOpen(false);
+          }}
+          onCancel={() => setIsPickerOpen(false)}
+          ref={ref}
+          {...rest}
+        />
+      </Root>
+    );
+  }
+);
+
+export default DateTimeField;
 
 const Root = styled.View`
   position: relative;

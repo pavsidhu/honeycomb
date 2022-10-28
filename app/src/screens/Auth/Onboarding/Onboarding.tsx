@@ -1,22 +1,19 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FlatList } from "react-native";
 import styled from "styled-components/native";
 
 import { YellowThemeProvider } from "../../../theme";
+import trpc from "../../../trpc";
 import AuthRoutes, { AuthRoutesParamList } from "../AuthRoutes";
 import OnboardingStep1 from "./OnboardingStep1";
 import OnboardingStep2 from "./OnboardingStep2";
 import OnboardingStep3 from "./OnboardingStep3";
 import OnboardingStep4 from "./OnboardingStep4";
 import ProgressBar from "./ProgressBar";
-
-export interface OnboardingFormValues {
-  firstName?: string;
-  lastName?: string;
-  dateOfBirth?: string;
-  avatar?: string;
-}
+import { onboardingSchema, OnboardingSchema } from "./onboardingSchema";
 
 export type OnboardingProps = NativeStackScreenProps<
   AuthRoutesParamList,
@@ -24,38 +21,60 @@ export type OnboardingProps = NativeStackScreenProps<
 >;
 
 export default function Onboarding(props: OnboardingProps) {
-  const [formValues, setFormValues] = useState<OnboardingFormValues>({
-    dateOfBirth: new Date().toISOString(),
-  });
+  const { mutateAsync: createUser } = trpc.createUser.useMutation();
+
+  const { control, handleSubmit, trigger, clearErrors } =
+    useForm<OnboardingSchema>({
+      resolver: zodResolver(onboardingSchema),
+    });
+
+  async function onSubmit(values: OnboardingSchema) {
+    try {
+      return await createUser({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        dateOfBirth: values.dateOfBirth,
+        phoneNumber: values.phoneNumber,
+      });
+    } catch {
+      // TODO: handle case
+    }
+  }
+
   const pages = [
     <OnboardingStep1
       key={1}
-      onSubmit={(nextFormValues) => {
-        setFormValues((value) => ({ ...value, nextFormValues }));
-        scrollToIndex(1);
+      control={control}
+      onSubmit={async () => {
+        const valid = await trigger();
+        if (valid) {
+          clearErrors();
+          scrollToIndex(1);
+        }
       }}
     />,
     <OnboardingStep2
       key={2}
+      control={control}
       onBack={() => scrollToIndex(0)}
-      onSubmit={(nextFormValues) => {
-        setFormValues((value) => ({ ...value, nextFormValues }));
-        scrollToIndex(2);
+      onSubmit={async () => {
+        const valid = await trigger();
+        if (valid) {
+          clearErrors();
+          scrollToIndex(2);
+        }
       }}
     />,
     <OnboardingStep3
       key={3}
+      control={control}
       onBack={() => scrollToIndex(1)}
-      onSubmit={(nextFormValues) => {
-        setFormValues((value) => ({ ...value, nextFormValues }));
+      onSubmit={async () => {
+        await handleSubmit(onSubmit)();
         scrollToIndex(3);
       }}
     />,
-    <OnboardingStep4
-      key={4}
-      formValues={formValues}
-      onBack={() => scrollToIndex(2)}
-    />,
+    <OnboardingStep4 key={4} />,
   ];
 
   const [progress, setProgress] = useState(100 / pages.length);

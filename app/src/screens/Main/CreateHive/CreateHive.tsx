@@ -1,12 +1,19 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import styled from "styled-components/native";
+import * as z from "zod";
 
 import Button from "../../../components/Button";
 import IconButton from "../../../components/IconButton";
 import Sheet from "../../../components/Sheet";
-import TextField from "../../../components/TextField";
 import MainRoutes, { MainRoutesParamList } from "../MainRoutes";
+
+const createHiveSchema = z.object({
+  name: z.string(),
+  location: z.string(),
+  description: z.string(),
+});
+export type CreateHiveSchema = z.infer<typeof createHiveSchema>;
 
 export type CreateHiveProps = NativeStackScreenProps<
   MainRoutesParamList,
@@ -16,21 +23,45 @@ export type CreateHiveProps = NativeStackScreenProps<
 export default function CreateHive(props: CreateHiveProps) {
   const { navigation } = props;
 
-  function handleSubmit() {
-    navigation.popToTop();
-    navigation.push(MainRoutes.Hive, { hiveId: "" });
+  const { mutateAsync: createHive } = trpc.createHive.useMutation();
+
+  const { control, handleSubmit, trigger, clearErrors } =
+    useForm<CreateHiveSchema>({
+      resolver: zodResolver(createHiveSchema),
+    });
+
+  async function onSubmit(values: CreateHiveSchema) {
+    try {
+      await createHive({
+        name: values.name,
+        location: values.location,
+        description: values.description,
+      });
+
+      navigation.popToTop();
+      navigation.push(MainRoutes.Hive, { hiveId: "" });
+    } catch {
+      // TODO: handle case
+    }
   }
 
   return (
     <Root>
-      <IconButton name="back" edge="start" onPress={navigation.onBack} />
+      <IconButton name="back" edge="start" onPress={navigation.goBack} />
 
       <Title>Create a new hive</Title>
 
       <Sheet>
-        <TextField label="Name" placeholder="" />
-        {/* <SelectField label="Location" /> */}
-        {/* <LongTextField label="Description" /> */}
+        <TextFieldRhf label="Name" placeholder="" control={control} />
+        {/* <LocationField /> */}
+
+        <TextFieldRhf
+          placeholder="Any extra details to add?"
+          label="Description"
+          multiline
+          control={control}
+          textInputStyle={{ height: 120 }}
+        />
 
         <Button onPress={handleSubmit}>Create hive</Button>
       </Sheet>
